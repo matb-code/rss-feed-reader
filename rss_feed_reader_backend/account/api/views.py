@@ -1,8 +1,9 @@
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
-from account.api.serializers import RegistrationSerializer
+from account.api.serializers import RegistrationSerializer, AccountSerializer
 
 
 @api_view(['POST', ])
@@ -19,3 +20,10 @@ def registration_view(request):
 		else:
 			data = serializer.errors
 		return Response(data)
+
+@api_view(['POST',])
+@permission_classes((IsAuthenticated,))
+def account_info(request):
+	user = request.user
+	serialized_response = AccountSerializer(user)
+	return Response(serialized_response.data)
