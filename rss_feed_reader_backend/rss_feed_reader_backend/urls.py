@@ -19,7 +19,8 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     #path('live_feed/', include('live_feed.urls')),
+    
     #api
-
-    path("api/live_feed/", include('live_feed.api.urls'))
+    path("api/live_feed/", include('live_feed.api.urls')),
+    path("api/account/", include('account.api.urls'))
 ]
