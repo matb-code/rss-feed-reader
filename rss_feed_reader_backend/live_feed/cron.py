@@ -8,4 +8,3 @@ def get_feed():
         Log.objects.create(status="S")
     except Exception:
         Log.objects.create(status="F")
-

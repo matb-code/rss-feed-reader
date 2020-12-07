@@ -22,5 +22,6 @@ urlpatterns = [
     
     #api
     path("api/live_feed/", include('live_feed.api.urls')),
-    path("api/account/", include('account.api.urls'))
+    path("api/account/", include('account.api.urls')),
+    path("api/feed/", include('feed.api.urls')),
 ]

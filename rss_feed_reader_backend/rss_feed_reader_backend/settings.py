@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django_crontab',
     'live_feed.apps.LiveFeedConfig',
     'account.apps.AccountConfig',
+    'feed.apps.FeedConfig',
     'rest_framework',
     'rest_framework.authtoken',
 
@@ -135,3 +136,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+##Crontab Scheduler for live feed
+CRONJOBS = [
+    ('*/1 * * * *', 'live_feed.cron.get_feed'),
+]
