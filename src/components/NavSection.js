@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 function NavSection() {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const menuItem = ['Logout']
+    const menuItem = [{id:1, name:'Logout'}]
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -18,7 +18,7 @@ function NavSection() {
 
     const menuList = menuItem.map(item => {
         return (
-            <MenuItem onClick={handleClose}>{item}</MenuItem>
+            <MenuItem key={item.id}>{item.name}</MenuItem>
         )
     });
 
