@@ -2,7 +2,7 @@ import Grid from '@material-ui/core/Grid';
 import SideBar from './SideBar';
 import { Divider } from '@material-ui/core';
 import NavSection from './NavSection';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import TodayView from './TodayView';
 import FeedCategoryForm from './FeedCategoryForm';
 import FeedContextProvider from '../Context/FeedContext';
@@ -14,7 +14,7 @@ import EditFeed from './EditFeed';
 
 function Home() {
   return (
-    <BrowserRouter>
+    <Router>
     <div className="App">
     <FeedContextProvider>
       <Grid container style={{height: '100vh'}}>
@@ -47,7 +47,7 @@ function Home() {
       </Grid>
     </FeedContextProvider>
     </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 

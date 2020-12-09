@@ -61,8 +61,8 @@ function SideBar(props) {
                             {folder.length ? (folder[0].feeds.map( feed => {
                                 return (
                                     <MenuItem>
-                                        <Avatar variant='square' src={feed.image} style={{height: 20, width:20}} />
-                                        <ListItemText style={{marginLeft: 20}}>{feed.name}</ListItemText>
+                                        <Avatar variant='square' src={feed.logo_link} style={{height: 20, width:20}} />
+                                        <ListItemText style={{marginLeft: 10, fontSize:12}}>{feed.title}</ListItemText>
                                     </MenuItem>
                                 )
                             })):<div></div>
@@ -77,7 +77,10 @@ function SideBar(props) {
 
     return (
         <Grid container direction='column'>
-            <Grid item xs={12} style={{paddingTop:60}}>
+                <Grid item>
+                    <Avatar src='/Feeds-Green-icon.png' style={{padding:10, width:40, height:40 }} />
+                </Grid>
+            <Grid item xs={12}>
                 <MenuList>
                     <MenuItem component={Link} to='/home' selected={'/home' === pathname} >
                         <ListItemIcon>

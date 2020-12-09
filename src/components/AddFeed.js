@@ -8,6 +8,7 @@ import FeedInfoCard from './FeedInfoCard';
 
 function AddFeed() {
     const {fetchFeed} = React.useContext(FeedContext);
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         //console.log(e.target[0].value);

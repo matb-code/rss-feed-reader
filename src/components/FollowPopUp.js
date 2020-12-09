@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default withRouter(function FollowPopUp(props) {
   const classes = useStyles();
-  const {follow, setFollow, feedCategory, feedInfo, saveFeedToFolder} = React.useContext(FeedContext);
+  const {follow, setFollow, feedCategory, saveFeedToFolder} = React.useContext(FeedContext);
   const [folder, setFolder] = React.useState('');
 
   const handleClose = () => {
@@ -36,7 +36,7 @@ export default withRouter(function FollowPopUp(props) {
 
   const handleMenuClick = (cat) => {
       console.log(props);
-      saveFeedToFolder(feedInfo, cat);
+      saveFeedToFolder(cat);
       handleClose();
 
   }

@@ -2,11 +2,13 @@ import React from 'react';
 import { Button, Grid, IconButton, Menu, MenuItem } from  '@material-ui/core'
 import { AccountCircle, AddCircle } from '@material-ui/icons'
 import {Link} from 'react-router-dom';
+import {FeedContext} from '../Context/FeedContext';
 
 function NavSection() {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const menuItem = [{id:1, name:'Logout'}]
+    const {fetchFeed} = React.useContext(FeedContext);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -16,9 +18,13 @@ function NavSection() {
         setAnchorEl(null);
     };
 
+    const handleRoute = () => {
+        fetchFeed();
+    }
+
     const menuList = menuItem.map(item => {
         return (
-            <MenuItem key={item.id}>{item.name}</MenuItem>
+            <MenuItem key={item.id} component={Link} to='/'>{item.name}</MenuItem>
         )
     });
 
@@ -26,7 +32,7 @@ function NavSection() {
         <Grid container justify='flex-end' spacing={1} style={{paddingTop: 10}}>
             <Grid item>
                 <Link to='/addfeed'>
-                    <Button startIcon={<AddCircle />} style={{marginTop: 5}}>
+                    <Button startIcon={<AddCircle />} style={{marginTop: 5}} onClick={handleRoute}>
                         Add New RSS Feed
                     </Button>
                 </Link>          

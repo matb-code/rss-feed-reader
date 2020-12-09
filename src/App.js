@@ -1,19 +1,24 @@
 import Home from './components/Home';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
+import UserContextProvider from'./Context/UserContext';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <div className="App">
+      <UserContextProvider>
+        
       <Switch>
             <Route exact path='/' component={Login} />
-            <Route path='/home' component={Home} />
+            <PrivateRoute path='/home' component={Home} />
             <Route path='/register' component={SignUp} />
       </Switch>
+      </UserContextProvider>
       </div>
-    </BrowserRouter>
+    </Router>
     )
 }
 

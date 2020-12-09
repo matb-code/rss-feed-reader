@@ -1,7 +1,8 @@
 import React from 'react';
 import { Container, Typography, TextField, Button, Avatar, Grid } from '@material-ui/core';
-import {Link } from 'react-router-dom';
+import {Redirect } from 'react-router-dom';
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
+import {UserContext} from '../Context/UserContext';
 
 const theme = createMuiTheme({
     typography:{
@@ -23,6 +24,26 @@ const theme = createMuiTheme({
 })
 
 function SignUp() {
+    const [reg, setReg] = React.useState({
+        email: null,
+        display_name: null,
+        password: null,
+        password2: null
+    })
+    const {registerUser, isRegistered} = React.useContext(UserContext);
+
+    if(isRegistered){
+        return <Redirect to='/home' />
+    }
+
+    const handleChange = (e) => {
+        setReg(prev => ({...prev, [e.target.id]: e.target.value}));
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        registerUser(reg);
+    }
+
     return (
         <ThemeProvider theme={theme}>
         <Container maxWidth='sm' style={{padding:'10vw 10vw'}}>
@@ -38,42 +59,51 @@ function SignUp() {
 
             <Grid style={{paddingLeft:60}}>
             <Typography variant='subtitle1'>Register your Account</Typography>
-                    <form>
-                    <TextField 
-                        variant="outlined"
-                        color='secondary'
-                        label='Email'
-                        type='email'
-                        placeholder='test@test.com'
-                        style={{marginBottom:15}}
-                    />
-                    <TextField 
-                        variant="outlined"
-                        color='secondary'
-                        label='Display Name'
-                        type='text'
-                        style={{marginBottom:15}}
-                    />
-                    <TextField 
-                        variant="outlined"
-                        color='secondary'
-                        label='Password'
-                        type='password'
-                        style={{marginBottom:15}}
-                    />
-                    <TextField 
-                        variant="outlined"
-                        color='secondary'
-                        label='Confirm Password'
-                        type='password'
-                        style={{marginBottom:15}}
-                    />
-                    <br />
-                    <Button variant='filled' 
-                        style={{color: 'white', backgroundColor:'green', marginBottom:15}} component={Link} to='/home'
-                    > 
-                        Sign Up 
-                    </Button>
+                    <form onSubmit={handleSubmit}>
+                        <TextField 
+                            variant="outlined"
+                            color='secondary'
+                            label='Email'
+                            type='email'
+                            placeholder='test@test.com'
+                            style={{marginBottom:15}}
+                            id='email'
+                            onChange={handleChange}
+                        />
+                        <TextField 
+                            variant="outlined"
+                            color='secondary'
+                            label='Display Name'
+                            type='text'
+                            style={{marginBottom:15}}
+                            id='display_name'
+                            onChange={handleChange}
+                        />
+                        <TextField 
+                            variant="outlined"
+                            color='secondary'
+                            label='Password'
+                            type='password'
+                            style={{marginBottom:15}}
+                            id='password'
+                            onChange={handleChange}
+                        />
+                        <TextField 
+                            variant="outlined"
+                            color='secondary'
+                            label='Confirm Password'
+                            type='password'
+                            style={{marginBottom:15}}
+                            id='password2'
+                            onChange={handleChange}
+                        />
+                        <br />
+                        <Button variant='outlined'
+                            type='submit' 
+                            style={{color: 'white', backgroundColor:'green', marginBottom:15}} 
+                        > 
+                            Sign Up 
+                        </Button>
                     </form>
                     <a href='/'>
                         <Typography variant='subtitle2'>Already Have an Account?</Typography>
