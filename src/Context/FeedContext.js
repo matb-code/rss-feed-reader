@@ -10,8 +10,12 @@ function FeedContextProvider(props) {
     const [feedCategory, setFeedCategory] = useState(['Tech', 'News']);
     const [feedInfo, setFeedInfo] = useState([]);
     const [follow, setFollow] = useState(null);
+    const [unfollow, setUnfollow] = useState(null);
     const [folderFeeds, setFolderFeeds] = useState([]);
     const {auth} = React.useContext(UserContext);
+    const [userSources, setUserSources] = useState([]);
+   
+
 
     function saveFeedToFolder(folder) {
         //console.log(typeof folderFeeds);
@@ -67,10 +71,11 @@ function FeedContextProvider(props) {
     }
 
     async function followFeed() {
+        console.log(auth);
 
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Authorization': auth.token },
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Token ${auth.token}` },
         }
         await fetch(`${BASE_URL}/api/feed/follow/${follow}`, requestOptions)
             .then(res => res.json())
@@ -81,12 +86,36 @@ function FeedContextProvider(props) {
             })
     }
 
+    async function fetchUserSources() {
+        const requestOptions = {
+            method: 'GET',
+            headers: {'Authorization': `Token ${auth.token}`}
+        }
+
+        fetch(`${BASE_URL}/api/feed/source`, requestOptions)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setUserSources(data);
+            }).catch(err => console.log(err))
+    }
+
+    async function unfollowFeed() {
+        const requestOptions = {
+            method: 'DELETE',
+            headers: {'Authorization': `Token ${auth.token}`}
+        }
+
+        fetch(`${BASE_URL}/api/feed/unfollow/${unfollow}`, requestOptions)
+            .then(res => res.json())
+            .then(res => console.log(res))
+    }    
     
 
     return (
         <FeedContext.Provider value={{
             feedCategory, setFeedCategory, feedInfo, setFeedInfo, fetchFeed, follow, setFollow, 
-            saveFeedToFolder, folderFeeds, getFeedFolder
+            saveFeedToFolder, folderFeeds, getFeedFolder, userSources, fetchUserSources, unfollow, setUnfollow
             }}
         >
             {props.children}

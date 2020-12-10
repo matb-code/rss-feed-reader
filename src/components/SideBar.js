@@ -11,6 +11,7 @@ import { Link, withRouter} from 'react-router-dom';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 import { FeedContext } from '../Context/FeedContext';
+import { CardContext } from '../Context/CardContext';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,8 +34,9 @@ function SideBar(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
     const [feedOpen, setFeedOpen] = React.useState({open:false, id:null});
-    const {feedCategory, folderFeeds} = React.useContext(FeedContext);
+    const {feedCategory, folderFeeds, fetchUserSources} = React.useContext(FeedContext);
     const [folder, setFolder] = React.useState([])
+    const {fetchArticles} = React.useContext(CardContext);
     
 
     const handleFeedOpen = (id) => {
@@ -46,7 +48,14 @@ function SideBar(props) {
         setOpen(!open);
     }
 
-   
+    const handleContent = () => {
+        fetchArticles();
+    }
+
+    const handleSources = () => {
+        fetchUserSources();
+    }
+
     const feedsList = feedCategory.map(text => {
         return (
         <div key={text}>
@@ -60,7 +69,7 @@ function SideBar(props) {
                         <MenuList component="div" disablePadding className = {classes.nested2}>
                             {folder.length ? (folder[0].feeds.map( feed => {
                                 return (
-                                    <MenuItem>
+                                    <MenuItem key={feed.id}>
                                         <Avatar variant='square' src={feed.logo_link} style={{height: 20, width:20}} />
                                         <ListItemText style={{marginLeft: 10, fontSize:12}}>{feed.title}</ListItemText>
                                     </MenuItem>
@@ -82,14 +91,14 @@ function SideBar(props) {
                 </Grid>
             <Grid item xs={12}>
                 <MenuList>
-                    <MenuItem component={Link} to='/home' selected={'/home' === pathname} >
+                    <MenuItem component={Link} to='/home' selected={'/home' === pathname} onClick={handleContent} >
                         <ListItemIcon>
                             <DynamicFeedIcon />
                         </ListItemIcon>
                         <ListItemText primary="Today"/>
                     </MenuItem>
 
-                    <MenuItem component={Link} to='/readlater' selected={'/readlater' === pathname}>
+                    <MenuItem component={Link} to='/readlater' selected={'/readlater' === pathname} >
                         <ListItemIcon>
                             <BookmarkBorderIcon />
                         </ListItemIcon>
@@ -109,7 +118,7 @@ function SideBar(props) {
                                 </Button>
                             </Grid>
                             <Grid item xs={2}>
-                                <IconButton style={{width:3, height:3, marginLeft:10}} component={Link} to='/editfeed'>
+                                <IconButton style={{width:3, height:3, marginLeft:10}} component={Link} to='/editfeed' onClick={handleSources}>
                                     <SettingsIcon />
                                 </IconButton>
                             </Grid>

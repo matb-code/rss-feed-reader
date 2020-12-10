@@ -5,8 +5,9 @@ import {FeedContext} from '../Context/FeedContext'
 
 
 function EditFeed() {
-    const {folderFeeds} = React.useContext(FeedContext);
+    const {folderFeeds, userSources, setUnfollow} = React.useContext(FeedContext);
     const [displayValues, setDisplayValues] = React.useState(folderFeeds);
+    console.log(userSources);
 
     const handleChange = (e) => {
         const opt = e.target.value;
@@ -22,26 +23,27 @@ function EditFeed() {
         
     }
 
-    const followingList = displayValues.length ? (displayValues.map( folderFeed => {
+    const handleUnfollow = (id) => {
+        setUnfollow(id);
+    }
+
+    const followingList = userSources.length ? (userSources.map( source => {
         return (
-            <Grid container direction='column' key={folderFeed.folder}>
-                <Grid item style={{marginBottom: 10}}>
+            <Grid container direction='column' key={source.id} style={{marginTop: 10}}>
+                {/* <Grid item style={{marginBottom: 10}}>
                     <h2>{folderFeed.folder}</h2>
                 </Grid>
                 <Grid item>
                     <Divider />
-                </Grid>
-                {folderFeed.feeds.map(feed => {
-                    return (
+                </Grid> */}
+                
                         <Grid item container style={{paddingLeft: '5vw', padding:20}} spacing={2} >
-                            <Grid item xs={1}><Avatar variant='rounded' src={feed.image} style={{height: 50, width:50}} /> </Grid> 
-                            <Grid item xs={8}><p>{feed.name}</p></Grid>
+                            <Grid item xs={1}><Avatar variant='rounded' src={source.source.logo_link} style={{height: 50, width:50}} /> </Grid> 
+                            <Grid item xs={8}><p>{source.source.title}</p></Grid>
                             <Grid item xs={3}>
-                                <Button variant='outlined'> Unfollow </Button>
+                                <Button variant='outlined' onClick={() => handleUnfollow(source.source.id)}> Unfollow </Button>
                             </Grid>
                         </Grid>
-                    )
-                })}
             </Grid>
         )
     })) : (<div></div>)

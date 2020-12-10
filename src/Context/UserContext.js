@@ -26,7 +26,7 @@ function UserContextProvider(props) {
             .then(res => res.json())
             .then(data => {
                 localStorage.setItem('token', data.token);
-                setAuth(prev => ({...prev, isAuthenticated: true, token:localStorage.getItem('token')}));
+                setAuth({...auth, isAuthenticated: true, token:localStorage.getItem('token')})
                 console.log(auth);
             }).catch(err => {
                 console.log(err);

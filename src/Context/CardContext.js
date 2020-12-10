@@ -1,46 +1,41 @@
 import React from 'react';
+import {UserContext} from './UserContext';
 
 export const CardContext = React.createContext();
 
+const BASE_URL = 'http://127.0.0.1:8000';
+
+
 function CardContextProvider(props) {
-    const [content, setContent] = React.useState([
-        {
-            id: 1,
-            image: "https://assets.wholefoodsmarket.com/recipes/4450/2048/1536/4450-4.jpg",
-            title: "Shrimp and Chorizo Paella",
-            date: "September 14, 2016",
-            content: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
-        },
-        {
-            id: 2,
-            image: "https://assets.wholefoodsmarket.com/recipes/4450/2048/1536/4450-4.jpg",
-            title: "Shrimp and Chorizo Paella",
-            date: "September 14, 2016",
-            content: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
-        },
-        {
-            id: 3,
-            image: "https://assets.wholefoodsmarket.com/recipes/4450/2048/1536/4450-4.jpg",
-            title: "Shrimp and Chorizo Paella",
-            date: "September 14, 2016",
-            content: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
-        },
-        {
-            id: 4,
-            image: "https://assets.wholefoodsmarket.com/recipes/4450/2048/1536/4450-4.jpg",
-            title: "Shrimp and Chorizo Paella",
-            date: "September 14, 2016",
-            content: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
-        }
-    ]);
+    const [content, setContent] = React.useState([]);
 
     const [bookmarkedContent, setBookmarkedContent] = React.useState([]);
     const [bookmarkClicked, setBookmarkClicked] = React.useState([]);
+    const {auth} = React.useContext(UserContext);
+
+    React.useEffect(() => {
+        fetchArticles();
+    }, [])
+
+
+    async function fetchArticles(){
+        const requestOptions = {
+            method: 'GET',
+            headers: {'Authorization': `Token ${auth.token}`}
+        }
+
+        fetch(`${BASE_URL}/api/feed/article`, requestOptions)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setContent(data);
+            }).catch(err => console.log(err));
+    }
 
     return (
         <CardContext.Provider 
             value={{
-                content, setContent, bookmarkedContent, setBookmarkedContent, bookmarkClicked, setBookmarkClicked
+                content, setContent, bookmarkedContent, setBookmarkedContent, bookmarkClicked, setBookmarkClicked, fetchArticles
             }}
         >
             {props.children}

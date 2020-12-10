@@ -1,4 +1,4 @@
-import { Grid, makeStyles, Typography, Avatar, IconButton} from '@material-ui/core';
+import { Grid, makeStyles, Avatar, IconButton} from '@material-ui/core';
 import { Card, CardHeader, CardMedia, CardActions, CardContent } from '@material-ui/core';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
@@ -10,7 +10,7 @@ import React from 'react';
 
 const useStyles = makeStyles({
     cardRoot: {
-        maxWidth: 300,
+        maxWidth: '100vw',
         marginBottom: 25
       },
     media: {
@@ -38,7 +38,7 @@ function CardView(props) {
     }
     const cardList = contents.map(e => {
         return(
-            <Grid item xs={4} key={e.id}>
+            <Grid item key={e.id}>
                 <Card className={classes.cardRoot}>
                     <CardHeader
                         avatar={
@@ -47,23 +47,20 @@ function CardView(props) {
                         </Avatar>
                         }
                         title={e.title}
-                        subheader={e.date}
+                        subheader={e.published_date}
                     />
-                    <CardMedia
+                    {/* <CardMedia
                         className={classes.media}
                         image={e.image}
-                    />
-                    <CardContent>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            {e.content}
-                        </Typography>
+                    /> */}
+                    <CardContent dangerouslySetInnerHTML={{__html: e.summary}}>
                     </CardContent>
                     <CardActions disableSpacing>
                         <IconButton aria-label="add to favorites" onClick={() => {handleBookmark(e.id)}}>
                             {bookmarkClicked.clicked && bookmarkClicked.clickId === e.id ? <BookmarkIcon /> : 
                             <BookmarkBorderIcon />}
                         </IconButton>
-                        <a href='/#'>
+                        <a href={e.link}>
                             <h5>Read More...</h5>
                         </a>
                     </CardActions>

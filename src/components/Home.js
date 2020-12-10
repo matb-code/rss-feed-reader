@@ -19,7 +19,9 @@ function Home() {
     <FeedContextProvider>
       <Grid container style={{height: '100vh'}}>
           <Grid item xs={2} style={{backgroundColor: '#F6F7F8'}}>
-            <SideBar />
+            <CardContextProvider>
+              <SideBar />
+            </CardContextProvider>
           </Grid>
 
           <Grid item container xs={10} direction='column' spacing={2}>
