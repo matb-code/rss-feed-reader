@@ -25,7 +25,7 @@ function EditFeed() {
 
     React.useEffect(() => {
         console.log('EditFeed useEffect called!!!');
-    }, [unfollow])
+    }, [userSources])
 
     const handleUnfollow = (id) => {
         setUnfollow(id);

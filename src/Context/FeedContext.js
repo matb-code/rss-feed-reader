@@ -117,8 +117,20 @@ function FeedContextProvider(props) {
 
     return (
         <FeedContext.Provider value={{
-            feedCategory, setFeedCategory, feedInfo, setFeedInfo, fetchFeed, follow, setFollow, 
-            saveFeedToFolder, folderFeeds, getFeedFolder, userSources, fetchUserSources, unfollow, setUnfollow
+            feedCategory, 
+            setFeedCategory, 
+            feedInfo, 
+            setFeedInfo, 
+            fetchFeed, 
+            follow, 
+            setFollow, 
+            saveFeedToFolder, 
+            folderFeeds, 
+            getFeedFolder, 
+            userSources, 
+            fetchUserSources, 
+            unfollow, 
+            setUnfollow
             }}
         >
             {props.children}
