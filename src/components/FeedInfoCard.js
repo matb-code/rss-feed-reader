@@ -7,6 +7,8 @@ function FeedInfoCard() {
     const {feedInfo, setFollow} = React.useContext(FeedContext);
     const feedLength = feedInfo.length;
 
+    
+
     const handleFollow = (id) => {
         setFollow(id);
     }

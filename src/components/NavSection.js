@@ -3,12 +3,22 @@ import { Button, Grid, IconButton, Menu, MenuItem } from  '@material-ui/core'
 import { AccountCircle, AddCircle } from '@material-ui/icons'
 import {Link} from 'react-router-dom';
 import {FeedContext} from '../Context/FeedContext';
+import { UserContext } from '../Context/UserContext';
 
-function NavSection() {
 
+const NavSection = () => {
+    const { logout } = React.useContext(UserContext);
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const menuItem = [{id:1, name:'Logout'}]
-    const {fetchFeed} = React.useContext(FeedContext);
+    const menuItem = [
+        {id:1,
+        name:'Logout',
+        onclick: () => {
+            console.log('clicked logout');
+            logout();
+        }
+    }
+    ]
+    const {fetchFeed, fetchUserSources} = React.useContext(FeedContext);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -24,7 +34,7 @@ function NavSection() {
 
     const menuList = menuItem.map(item => {
         return (
-            <MenuItem key={item.id} component={Link} to='/'>{item.name}</MenuItem>
+            <MenuItem key={item.id} component={Link} onClick={item.onclick} to='/'>{item.name}</MenuItem>
         )
     });
 

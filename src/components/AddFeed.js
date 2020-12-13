@@ -32,7 +32,7 @@ function AddFeed() {
                         </InputAdornment>
                     }
                     style={{marginTop: 30, width:'60vw'}}
-                    placeholder='Search by RSS link'
+                    placeholder='Search Feed'
                     
                     />
                     <br/>

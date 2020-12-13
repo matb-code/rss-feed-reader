@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const UserContext =  React.createContext();
+export const UserContext = React.createContext();
 
 const BASE_URL = 'http://127.0.0.1:8000';
 
@@ -16,27 +16,32 @@ function UserContextProvider(props) {
 
 
 
-    async function login(loginCred){
+    async function login(loginCred) {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(loginCred) 
+            body: JSON.stringify(loginCred)
         }
         await fetch(`${BASE_URL}/api/account/login`, requestOptions)
             .then(res => res.json())
             .then(data => {
+                console.log('response data == ', data);
                 localStorage.setItem('token', data.token);
-                setAuth({...auth, isAuthenticated: true, token:localStorage.getItem('token')})
-                console.log(auth);
+                if ('token' in data)
+                    setAuth(prev => ({ ...prev, isAuthenticated: true, token: data.token }));
+                else
+                    console.log('Errorrrr:: ', data)
             }).catch(err => {
                 console.log(err);
+                // setAuth(prev => ({ ...prev, isAuthenticated: false }));
+
             })
     }
-    async function registerUser(user_info){
+    async function registerUser(user_info) {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(user_info) 
+            body: JSON.stringify(user_info)
         }
         fetch(`${BASE_URL}/api/account/register`, requestOptions)
             .then(res => res.json())
@@ -48,9 +53,25 @@ function UserContextProvider(props) {
             })
     }
 
+    const logout = () => {
+        setAuth({
+            isAuthenticated: false,
+            isLoading: false,
+            token: null,
+            user: null
+        });
+    }
+
     return (
-        
-        <UserContext.Provider value={{auth, setAuth, registerUser, login, isRegistered}}>
+
+        <UserContext.Provider value={{
+            auth,
+            setAuth,
+            registerUser,
+            login,
+            logout,
+            isRegistered
+        }}>
             {props.children}
         </UserContext.Provider>
     )

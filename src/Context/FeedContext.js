@@ -15,7 +15,10 @@ function FeedContextProvider(props) {
     const {auth} = React.useContext(UserContext);
     const [userSources, setUserSources] = useState([]);
    
-
+    React.useEffect(() => {
+        unfollowFeed(unfollow);
+        fetchUserSources();
+    }, [unfollow])
 
     function saveFeedToFolder(folder) {
         //console.log(typeof folderFeeds);

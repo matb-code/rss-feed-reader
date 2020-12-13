@@ -26,7 +26,7 @@ const theme = createMuiTheme({
 })
 
 
-function Login() {
+const Login = () => {
     const [loginCred, setLoginCred] = React.useState({
         username: null,
         password: null
@@ -44,6 +44,7 @@ function Login() {
     
     const handleLogin = (e) => {
         e.preventDefault();
+        console.log('from handlelogin=== ',e );
         login(loginCred);
     }
     return(
@@ -95,7 +96,7 @@ function Login() {
                         <Typography variant='subtitle2'>Forgot your Password?</Typography>
                     </a>
                     <a href='/register'>
-                        <Typography variant='subtitle2'>Don't have and Account yet?</Typography>
+                        <Typography variant='subtitle2'>Don't have an Account yet?</Typography>
                     </a>
                     
                 </Grid>
