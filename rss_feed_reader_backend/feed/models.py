@@ -6,13 +6,17 @@ from django.utils import timezone
 class UserSource(models.Model):
     id = models.AutoField(primary_key=True)
     date_Subscribed = models.DateTimeField(default=timezone.now)
+    folder = models.CharField(default="None",max_length=200)
     source = models.ForeignKey(Source,on_delete=models.CASCADE)
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
     class Meta:
         unique_together = ["account", "source"]
 
-# class UserBookmark(models.Model):
-#     id = models.AutoField(primary_key=True)
-#     account = models.ForeignKey(Account, on_delete=models.CASCADE)
-#     article = models.ForeignKey(Article, on_delete=models.CASCADE)
+class UserBookmark(models.Model):
+    id = models.AutoField(primary_key=True)
+    account = models.ForeignKey(Account, on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    date_bookmarked = models.DateTimeField(default=timezone.now)
+    class Meta:
+        unique_together = ["account", "article"]
 
