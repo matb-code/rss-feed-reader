@@ -5,7 +5,7 @@ import {FeedContext} from '../Context/FeedContext'
 
 
 function EditFeed() {
-    const {folderFeeds, userSources, setUnfollow} = React.useContext(FeedContext);
+    const {folderFeeds, userSources, unfollow, setUnfollow} = React.useContext(FeedContext);
     const [displayValues, setDisplayValues] = React.useState(folderFeeds);
     console.log(userSources);
 
@@ -22,6 +22,10 @@ function EditFeed() {
         
         
     }
+
+    React.useEffect(() => {
+        console.log('EditFeed useEffect called!!!');
+    }, [userSources])
 
     const handleUnfollow = (id) => {
         setUnfollow(id);

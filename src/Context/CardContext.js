@@ -35,7 +35,13 @@ function CardContextProvider(props) {
     return (
         <CardContext.Provider 
             value={{
-                content, setContent, bookmarkedContent, setBookmarkedContent, bookmarkClicked, setBookmarkClicked, fetchArticles
+                content,
+                setContent,
+                bookmarkedContent, 
+                setBookmarkedContent, 
+                bookmarkClicked, 
+                setBookmarkClicked, 
+                fetchArticles
             }}
         >
             {props.children}

@@ -7,6 +7,7 @@ import { CardContext } from '../Context/CardContext';
 
 
 import React from 'react';
+import { FeedContext } from '../Context/FeedContext';
 
 const useStyles = makeStyles({
     cardRoot: {
@@ -24,7 +25,15 @@ const useStyles = makeStyles({
 function CardView(props) {
     const classes = useStyles();
     const contents = props.content;
-    const {content, bookmarkedContent, setBookmarkedContent, bookmarkClicked, setBookmarkClicked} = React.useContext(CardContext);
+    const {content, bookmarkedContent, fetchArticles, setBookmarkedContent, bookmarkClicked, setBookmarkClicked} = React.useContext(CardContext);
+    const { userSources } = React.useContext(FeedContext);
+
+    React.useEffect(() => {
+        console.log('Cardview useffect')
+        fetchArticles()
+    }, [userSources])
+
+
 
     const handleBookmark = (id) => {
         const toBookmark = content.filter(c => c.id === id)
