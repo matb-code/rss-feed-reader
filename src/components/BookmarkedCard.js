@@ -18,21 +18,21 @@ const useStyles = makeStyles({
     }
 })
 
-function CardView(props) {
+function BookmarkedCard(props) {
     const classes = useStyles();
     const contents = props.content;
-    const {fetchArticles, bookmarkClicked, setBookmarkClicked, bookmarkArticle} = React.useContext(CardContext);
+    const {fetchBookmarkedArticles, bookmarkClicked, setBookmarkClicked, unbookmarkArticle} = React.useContext(CardContext);
     const { userSources } = React.useContext(FeedContext);
 
     React.useEffect(() => {
         console.log('Cardview useffect')
-        fetchArticles()
-    }, [userSources])
+        fetchBookmarkedArticles()
+    }, [bookmarkClicked])
 
 
 
     const handleBookmark = (id) => {
-        bookmarkArticle(id);
+        unbookmarkArticle(id);
 
         setBookmarkClicked(bClicked => ({
             clicked: !bClicked.clicked,
@@ -45,19 +45,19 @@ function CardView(props) {
                 <Card className={classes.cardRoot}>
                     <CardHeader
                         avatar={
-                        <Avatar src={e.source.source_logo} variant='rounded' />
+                        <Avatar src={e.article.source.source_logo} variant='rounded' />
                         }
                         title={e.title}
-                        subheader={e.published_date + ' | ' + e.source.source_name}
+                        subheader={e.article.published_date + ' | ' + e.article.source.source_name}
                     />
                     {/* <CardMedia
                         className={classes.media}
                         image={e.image}
                     /> */}
-                    <CardContent dangerouslySetInnerHTML={{__html: e.summary}}>
+                    <CardContent dangerouslySetInnerHTML={{__html: e.article.summary}}>
                     </CardContent>
                     <CardActions disableSpacing>
-                        <IconButton aria-label="add to favorites" onClick={() => {handleBookmark(e.id)}}>
+                        <IconButton aria-label="add to favorites" onClick={() => {handleBookmark(e.article.id)}}>
                             {bookmarkClicked.clicked && bookmarkClicked.clickId === e.id ? <BookmarkIcon /> : 
                             <BookmarkBorderIcon />}
                         </IconButton>
@@ -78,4 +78,4 @@ function CardView(props) {
     )
 }
 
-export default CardView;
+export default BookmarkedCard;

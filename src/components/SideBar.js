@@ -36,10 +36,11 @@ function SideBar(props) {
     const [feedOpen, setFeedOpen] = React.useState({open:false, id:null});
     const {feedCategory, folderFeeds, fetchUserSources, userSources} = React.useContext(FeedContext);
     const [folder, setFolder] = React.useState([])
-    const {fetchArticles} = React.useContext(CardContext);
+    const {fetchArticles, fetchBookmarkedArticles} = React.useContext(CardContext);
 
     React.useState(() => {
         console.log('Rerendered??');
+        fetchUserSources();
     }, [userSources])
     
 
@@ -58,6 +59,10 @@ function SideBar(props) {
 
     const handleSources = () => {
         fetchUserSources();
+    }
+
+    const handleBookmark = () => {
+        fetchBookmarkedArticles();
     }
 
     const feedsList = feedCategory.map(text => {
@@ -102,7 +107,7 @@ function SideBar(props) {
                         <ListItemText primary="Today"/>
                     </MenuItem>
 
-                    <MenuItem component={Link} to='/readlater' selected={'/readlater' === pathname} >
+                    <MenuItem component={Link} to='/readlater' selected={'/readlater' === pathname} onClick={handleBookmark} >
                         <ListItemIcon>
                             <BookmarkBorderIcon />
                         </ListItemIcon>
