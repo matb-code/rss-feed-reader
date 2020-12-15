@@ -11,7 +11,7 @@ const useStyles = makeStyles({
 
 function FeedCategoryForm(props) {
     console.log(props)
-    const {setFeedCategory} = React.useContext(FeedContext);
+    const {followFeed} = React.useContext(FeedContext);
     const classes = useStyles();
 
     const [title, setTitle] = React.useState('');
@@ -22,12 +22,13 @@ function FeedCategoryForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setFeedCategory(prevCategory => [...prevCategory, title]);
+        followFeed(title);
+        props.history.push('/addfeed');
     }
 
     const handleCancel = (e) => {
         e.preventDefault();
-        props.history.push('/');
+        props.history.push('/addfeed');
     }
     return (
         <Grid container direction='column'>

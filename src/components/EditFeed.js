@@ -5,7 +5,7 @@ import {FeedContext} from '../Context/FeedContext'
 
 
 function EditFeed() {
-    const {folderFeeds, userSources, unfollow, setUnfollow} = React.useContext(FeedContext);
+    const {folderFeeds, userSources, unfollowFeed} = React.useContext(FeedContext);
     const [displayValues, setDisplayValues] = React.useState(folderFeeds);
     console.log(userSources);
 
@@ -28,7 +28,7 @@ function EditFeed() {
     }, [userSources])
 
     const handleUnfollow = (id) => {
-        setUnfollow(id);
+        unfollowFeed(id);
     }
 
     const followingList = userSources.length ? (userSources.map( source => {

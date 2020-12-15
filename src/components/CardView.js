@@ -12,14 +12,11 @@ import { FeedContext } from '../Context/FeedContext';
 const useStyles = makeStyles({
     cardRoot: {
         maxWidth: '100vw',
-        marginBottom: 25
+        marginBottom: 25,
       },
     media: {
         height: 140,
-    },
-    avatar: {
-        backgroundColor: red[500],
-    },
+    }
 })
 
 function CardView(props) {
@@ -51,12 +48,10 @@ function CardView(props) {
                 <Card className={classes.cardRoot}>
                     <CardHeader
                         avatar={
-                        <Avatar className={classes.avatar}>
-                            R
-                        </Avatar>
+                        <Avatar src={e.source.source_logo} variant='rounded' />
                         }
                         title={e.title}
-                        subheader={e.published_date}
+                        subheader={e.published_date + ' | ' + e.source.source_name}
                     />
                     {/* <CardMedia
                         className={classes.media}

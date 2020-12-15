@@ -34,14 +34,18 @@ function SideBar(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
     const [feedOpen, setFeedOpen] = React.useState({open:false, id:null});
-    const {feedCategory, folderFeeds, fetchUserSources} = React.useContext(FeedContext);
+    const {feedCategory, folderFeeds, fetchUserSources, userSources} = React.useContext(FeedContext);
     const [folder, setFolder] = React.useState([])
     const {fetchArticles} = React.useContext(CardContext);
+
+    React.useState(() => {
+        console.log('Rerendered??');
+    }, [userSources])
     
 
     const handleFeedOpen = (id) => {
         setFeedOpen(prev => ({open: !prev.open, id: id}))
-        const f = folderFeeds.filter(x => x.folder === id );
+        const f = userSources.filter(x => x.folder === id );
         setFolder(f);
     }
     const handleClick = () =>{
@@ -67,11 +71,11 @@ function SideBar(props) {
             </MenuItem>
             <Collapse in={feedOpen.open && (feedOpen.id === text)} timeout="auto" unmountOnExit>
                         <MenuList component="div" disablePadding className = {classes.nested2}>
-                            {folder.length ? (folder[0].feeds.map( feed => {
+                            {folder.length ? (folder.map( feed => {
                                 return (
                                     <MenuItem key={feed.id}>
-                                        <Avatar variant='square' src={feed.logo_link} style={{height: 20, width:20}} />
-                                        <ListItemText style={{marginLeft: 10, fontSize:12}}>{feed.title}</ListItemText>
+                                        <Avatar variant='square' src={feed.source.logo_link} style={{height: 20, width:20}} />
+                                        <ListItemText style={{marginLeft: 10, fontSize:12}}>{feed.source.title}</ListItemText>
                                     </MenuItem>
                                 )
                             })):<div></div>
@@ -134,10 +138,7 @@ function SideBar(props) {
                                 <ListItemText primary="All" />
                             </MenuItem>
                             {feedsList}
-                            <MenuItem component={Link} to='/createfeed' style={{width: '100%'}} 
-                                selected={'/createfeed' === pathname}>
-                                <ListItemText primary="Create More Feed" />
-                            </MenuItem>
+                            
                         </MenuList>
                     </Collapse>
                 </MenuList>

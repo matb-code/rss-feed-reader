@@ -1,6 +1,7 @@
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import React from 'react';
 import {UserContext} from '../Context/UserContext';
+import {FeedContext} from '../Context/FeedContext';
 
 const { Button, Grid, Typography, TextField, Avatar } = require("@material-ui/core");
 const { Redirect } = require("react-router-dom");
@@ -33,6 +34,7 @@ const Login = () => {
     })
 
     const {auth, login, isRegistered} = React.useContext(UserContext);
+
 
     if (auth.isAuthenticated){
         return <Redirect to='/home' />

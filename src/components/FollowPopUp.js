@@ -10,8 +10,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { FeedContext } from '../Context/FeedContext';
 import SearchIcon from '@material-ui/icons/Search';
-import { InputAdornment} from '@material-ui/core';
-import {withRouter} from 'react-router-dom';
+import { InputAdornment, ListItemText} from '@material-ui/core';
+import {withRouter, Link} from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default withRouter(function FollowPopUp(props) {
   const classes = useStyles();
-  const {follow, setFollow, feedCategory, saveFeedToFolder} = React.useContext(FeedContext);
+  const {follow, setFollow, feedCategory, followFeed} = React.useContext(FeedContext);
   const [folder, setFolder] = React.useState('');
 
   const handleClose = () => {
@@ -36,7 +36,7 @@ export default withRouter(function FollowPopUp(props) {
 
   const handleMenuClick = (cat) => {
       console.log(props);
-      saveFeedToFolder(cat);
+      followFeed(cat);
       handleClose();
 
   }
@@ -74,6 +74,9 @@ export default withRouter(function FollowPopUp(props) {
             </FormControl>
           </form>
           {menuList}
+          <MenuItem component={Link} to='/createfeed' style={{width: '100%'}}>
+                <ListItemText primary="Create New Folder" />
+          </MenuItem>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
