@@ -1,7 +1,7 @@
 import { Grid, makeStyles } from '@material-ui/core';
 import React from 'react';
 import {CardContext} from '../Context/CardContext';
-import CardView from './CardView';
+import BookmarkedCard from './BookmarkedCard';
 
 const useStyles = makeStyles({
     heading2: {
@@ -12,8 +12,11 @@ const useStyles = makeStyles({
 
 function ReadLater() {
     const classes = useStyles();
-    const {bookmarkedContent} = React.useContext(CardContext); 
-
+    const {bookmarkedContent, fetchBookmarkedArticles} = React.useContext(CardContext); 
+    React.useEffect(() => {
+        console.log('Bookmarks');
+        fetchBookmarkedArticles();
+    }, [])
     return (
         <div>
             <Grid container direction='column'>
@@ -25,7 +28,7 @@ function ReadLater() {
                     <p className={classes.heading2}>LATEST</p>
                 </Grid>
                 
-                <CardView content={bookmarkedContent} />
+                <BookmarkedCard content={bookmarkedContent} />
             </Grid>
         </div>
     )

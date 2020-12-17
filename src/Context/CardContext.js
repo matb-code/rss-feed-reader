@@ -32,6 +32,45 @@ function CardContextProvider(props) {
             }).catch(err => console.log(err));
     }
 
+    async function bookmarkArticle(id){
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json', 'Authorization': `Token ${auth.token}`}
+        }
+
+        fetch(`${BASE_URL}/api/feed/bookmark/add/${id}`, requestOptions)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            }).catch(err => console.log(err));
+    }
+
+    async function unbookmarkArticle(id){
+        const requestOptions = {
+            method: 'DELETE',
+            headers: {'Authorization': `Token ${auth.token}`}
+        }
+
+        fetch(`${BASE_URL}/api/feed/bookmark/remove/${id}`, requestOptions)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            }).catch(err => console.log(err));
+    }
+
+    async function fetchBookmarkedArticles(){
+        const requestOptions = {
+            method: 'GET',
+            headers: {'Authorization': `Token ${auth.token}`}
+        }
+
+        fetch(`${BASE_URL}/api/feed/bookmark`, requestOptions)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setBookmarkedContent(data);
+            }).catch(err => console.log(err));
+    }
     return (
         <CardContext.Provider 
             value={{
@@ -41,7 +80,10 @@ function CardContextProvider(props) {
                 setBookmarkedContent, 
                 bookmarkClicked, 
                 setBookmarkClicked, 
-                fetchArticles
+                fetchArticles,
+                bookmarkArticle,
+                fetchBookmarkedArticles,
+                unbookmarkArticle
             }}
         >
             {props.children}
