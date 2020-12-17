@@ -26,9 +26,10 @@ function UserContextProvider(props) {
             .then(res => res.json())
             .then(data => {
                 console.log('response data == ', data);
-                localStorage.setItem('token', data.token);
-                if ('token' in data)
+                if ('token' in data){
                     setAuth(prev => ({ ...prev, isAuthenticated: true, token: data.token }));
+                    localStorage.setItem('token', data.token);
+                }
                 else
                     console.log('Errorrrr:: ', data)
             }).catch(err => {
@@ -54,12 +55,14 @@ function UserContextProvider(props) {
     }
 
     const logout = () => {
+        localStorage.clear();
         setAuth({
             isAuthenticated: false,
             isLoading: false,
             token: null,
             user: null
         });
+
     }
 
     return (

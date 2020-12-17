@@ -33,8 +33,15 @@ const Login = () => {
         password: null
     })
 
-    const {auth, login, isRegistered} = React.useContext(UserContext);
+    const {auth, setAuth, login, isRegistered} = React.useContext(UserContext);
 
+    React.useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token){
+            console.log('Found token ==> ', token)
+            setAuth(prev => ({ ...prev, isAuthenticated: true, token: token }));
+        }
+    }, []);
 
     if (auth.isAuthenticated){
         return <Redirect to='/home' />
