@@ -15,7 +15,6 @@ function FeedContextProvider(props) {
     const {auth} = React.useContext(UserContext);
     const [userSources, setUserSources] = useState([]);
    
-    
 
     function getFeedFolder(){
         const feeds = folderFeeds.map(folderFeed => {
@@ -62,6 +61,7 @@ function FeedContextProvider(props) {
     }
 
     async function fetchUserSources() {
+        console.log('FetchuserSources calledddd !!!!!!! ');
         const requestOptions = {
             method: 'GET',
             headers: {'Authorization': `Token ${auth.token}`}
@@ -70,24 +70,40 @@ function FeedContextProvider(props) {
         fetch(`${BASE_URL}/api/feed/source`, requestOptions)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                console.log('USer sources data ===== ', data);
                 setUserSources(data);
+                let f = []
+                let folders = data.length>0 ? data.map(source => {
+                    if (!f.includes(source.folder)) {
+                        console.log('Inside the map function --------- ')
+                        f.push(source.folder);
+                        return source.folder;
+                    }
+                    else {
+                        return ''
+                    }
+                }) : []
+                const final = folders.filter(f1 => f1 !== '');
+                console.log('f === ', f)
+                console.log('finall ===== ', final);
+
+                setFeedCategory(final);
             }).catch(err => console.log(err))
 
-        const f = []
-        const folders = userSources.length ? userSources.map(source => {
-            if (!f.includes(source.folder)){
-                f.push(source.folder);
-                return source.folder;
-            }
-            else{
-                return ''
-            }
-        }):[]
-        const final = folders.filter(f =>  f !== '');
-        console.log(final);
+        // const f = []
+        // const folders = userSources.length ? userSources.map(source => {
+        //     if (!f.includes(source.folder)){
+        //         f.push(source.folder);
+        //         return source.folder;
+        //     }
+        //     else{
+        //         return ''
+        //     }
+        // }):[]
+        // const final = folders.filter(f =>  f !== '');
+        // console.log('finall ===== ', final);
 
-        setFeedCategory(final);
+        // setFeedCategory(final);
 
     }
 

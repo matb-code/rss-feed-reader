@@ -16,9 +16,9 @@ function TodayView(){
     const {fetchUserSources} = React.useContext(FeedContext);
 
     React.useEffect(() => {
-        console.log('Called!')
+        console.log('Todayview Useffect Called!')
         fetchUserSources();
-    }, [auth])
+    },[])
 
     return (
         <Grid container>

@@ -40,7 +40,8 @@ function SideBar(props) {
 
     React.useState(() => {
         console.log('Rerendered??');
-    }, [userSources])
+        fetchUserSources(); 
+    }, [userSources, feedCategory])
     
 
     const handleFeedOpen = (id) => {
@@ -57,10 +58,11 @@ function SideBar(props) {
     }
 
     const handleSources = () => {
-        fetchUserSources();
+        // fetchUserSources();
     }
 
     const feedsList = feedCategory.map(text => {
+
         return (
         <div key={text}>
             <MenuItem onClick={() => handleFeedOpen(text)}>
