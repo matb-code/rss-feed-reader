@@ -58,10 +58,16 @@ function EditFeed() {
                 
                         <Grid item container style={{paddingLeft: '5vw', padding:20}} spacing={2} >
                             <Grid item xs={1}><Avatar variant='rounded' src={source.source.logo_link} style={{height: 50, width:50}} /> </Grid> 
-                            <Grid item xs={6}><p>{source.source.title}</p></Grid>
-                            <Grid item xs={2} style={{paddingTop: 10}} >{source.folder}</Grid>
+                            <Grid item container xs={8} direction='column'>
+                                <Grid item><p>{source.source.title}</p></Grid>
+                                <Grid item xs={1} 
+                                    style={{backgroundColor: 'green', color:'white', padding:5, borderRadius:4, fontSize:14}}
+                                >
+                                    {source.folder}
+                                </Grid>
+                            </Grid>
                             <Grid item xs={3}>
-                                <Button variant='outlined' onClick={() => handleUnfollow(source.source.id)}> Unfollow </Button>
+                                <Button variant='outlined' style={{marginTop:20}} onClick={() => handleUnfollow(source.source.id)}> Unfollow </Button>
                             </Grid>
                         </Grid>
             </Grid>
