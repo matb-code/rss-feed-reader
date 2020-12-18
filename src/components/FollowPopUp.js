@@ -27,12 +27,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default withRouter(function FollowPopUp(props) {
   const classes = useStyles();
-  const {follow, setFollow, feedCategory, followFeed} = React.useContext(FeedContext);
+  const {follow, setFollow, feedCategory, followFeed, fetchUserSources} = React.useContext(FeedContext);
   const [folder, setFolder] = React.useState('');
 
   const handleClose = () => {
     setFollow(false);
   };
+  React.useEffect(()=>{
+    setFollow(false);
+    //fetchUserSources();
+  }, [])
+
+  
 
   const handleMenuClick = (cat) => {
       console.log(props);
@@ -55,7 +61,7 @@ export default withRouter(function FollowPopUp(props) {
 
   return (
     <div>
-      <Dialog disableBackdropClick disableEscapeKeyDown open={follow} onClose={handleClose}>
+      <Dialog open={follow} onClose={handleClose}>
         <DialogTitle>Save Feed</DialogTitle>
         <DialogContent>
           <form className={classes.container}>

@@ -5,7 +5,7 @@ import {FeedContext} from '../Context/FeedContext'
 
 
 function EditFeed() {
-    const {folderFeeds, userSources, unfollowFeed} = React.useContext(FeedContext);
+    const {folderFeeds, userSources, unfollowFeed, getFeedFolder} = React.useContext(FeedContext);
     const [displayValues, setDisplayValues] = React.useState(folderFeeds);
     console.log(userSources);
 
@@ -30,7 +30,7 @@ function EditFeed() {
     const handleUnfollow = (id) => {
         unfollowFeed(id);
     }
-
+    console.log(getFeedFolder());
     const followingList = userSources.length ? (userSources.map( source => {
         return (
             <Grid container direction='column' key={source.id} style={{marginTop: 10}}>
