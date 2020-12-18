@@ -12,12 +12,14 @@ import AddFeed from './AddFeed';
 import EditFeed from './EditFeed';
 
 
+
+
 function Home() {
   return (
     <Router>
     <div className="App">
     <FeedContextProvider>
-      <Grid container style={{height: '100vh'}}>
+      <Grid container style={{height: '100vh', overflow:'hidden'}}>
           <Grid item xs={2} style={{backgroundColor: '#F6F7F8'}}>
             <CardContextProvider>
               <SideBar />
@@ -33,7 +35,7 @@ function Home() {
               <Divider />
             </Grid>
             
-            <Grid item style={{margin: '0 8vw'}}>
+            <Grid item style={{marginLeft: '8vw', height:'100vh', overflowY: 'scroll'}}>
               <CardContextProvider>
                 <Switch>  
                   <Route path='/home' component={TodayView} />

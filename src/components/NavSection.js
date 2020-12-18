@@ -18,7 +18,7 @@ const NavSection = () => {
         }
     }
     ]
-    const {fetchFeed, fetchUserSources} = React.useContext(FeedContext);
+    const {fetchFeed} = React.useContext(FeedContext);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -39,7 +39,7 @@ const NavSection = () => {
     });
 
     return (
-        <Grid container justify='flex-end' spacing={1} style={{paddingTop: 10}}>
+        <Grid container justify='flex-end' spacing={1} style={{paddingTop: 5}}>
             <Grid item>
                 <Link to='/addfeed'>
                     <Button startIcon={<AddCircle />} style={{marginTop: 5}} onClick={handleRoute}>

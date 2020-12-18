@@ -12,7 +12,7 @@ const useStyles = makeStyles({
 
 function TodayView(){
     const classes = useStyles();
-    const {content, auth} = React.useContext(CardContext);
+    const {content} = React.useContext(CardContext);
     const {fetchUserSources} = React.useContext(FeedContext);
 
     React.useEffect(() => {

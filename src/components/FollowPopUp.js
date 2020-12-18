@@ -53,9 +53,9 @@ export default withRouter(function FollowPopUp(props) {
   
   const menuList = feedCategory.filter(c => {
     if (folder === ''){
-      return c
+      return c;
     }else if(c.toLowerCase().includes(folder)){
-      return c
+      return c;
     }
   }).map(cat => {
       return(

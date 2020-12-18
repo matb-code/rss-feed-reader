@@ -11,7 +11,7 @@ import { FeedContext } from '../Context/FeedContext';
 const useStyles = makeStyles({
     cardRoot: {
         maxWidth: '100vw',
-        marginBottom: 25,
+        marginBottom: 15,
       },
     media: {
         height: 140,
