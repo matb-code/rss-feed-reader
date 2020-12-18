@@ -25,6 +25,10 @@ function FeedContextProvider(props) {
         return feeds;
     }
 
+    function getUserSourcesTitle(){
+        return userSources.length?userSources.map(s => s.source.title):[]
+    }
+
     async function fetchFeed() {
         console.log(auth);
 
@@ -138,7 +142,8 @@ function FeedContextProvider(props) {
             unfollow, 
             setUnfollow,
             followFeed,
-            unfollowFeed
+            unfollowFeed,
+            getUserSourcesTitle
             }}
         >
             {props.children}

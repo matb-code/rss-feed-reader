@@ -30,6 +30,7 @@ function EditFeed() {
     }
 
     React.useEffect(() => {
+        setDisplayValues(userSources);
         console.log('EditFeed useEffect called!!!');
     }, [userSources])
 
