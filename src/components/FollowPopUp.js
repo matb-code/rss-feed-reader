@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default withRouter(function FollowPopUp(props) {
   const classes = useStyles();
-  const {follow, setFollow, feedCategory, followFeed, fetchUserSources} = React.useContext(FeedContext);
+  const {follow, setFollow, feedCategory, followFeed} = React.useContext(FeedContext);
   const [folder, setFolder] = React.useState('');
 
   const handleClose = () => {

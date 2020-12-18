@@ -4,7 +4,7 @@ import { FeedContext } from '../Context/FeedContext';
 import FollowPopUp from './FollowPopUp';
 
 function FeedInfoCard() {
-    const {feedInfo, setFollow} = React.useContext(FeedContext);
+    const {feedInfo, setFollow, userSources} = React.useContext(FeedContext);
     const feedLength = feedInfo.length;
 
     
