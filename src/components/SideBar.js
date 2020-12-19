@@ -23,7 +23,9 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: theme.spacing(1),
     },
     nested2: {
-        paddingLeft: theme.spacing(2)
+        paddingLeft: theme.spacing(2),
+        maxWidth: '100vw',
+        fontSize: 10
     }
   }));
 
@@ -79,9 +81,9 @@ function SideBar(props) {
                         <MenuList component="div" disablePadding className = {classes.nested2}>
                             {folder.length ? (folder.map( feed => {
                                 return (
-                                    <MenuItem key={feed.id}>
+                                    <MenuItem key={feed.id} className={classes.nested2}>
                                         <Avatar variant='square' src={feed.source.logo_link} style={{height: 20, width:20}} />
-                                        <ListItemText style={{marginLeft: 10, fontSize:12}}>{feed.source.title}</ListItemText>
+                                        <ListItemText style={{marginLeft: 10, fontSize:10}}>{feed.source.title}</ListItemText>
                                     </MenuItem>
                                 )
                             })):<div></div>

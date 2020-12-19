@@ -100,7 +100,7 @@ const Login = () => {
                         Log In 
                     </Button>
                     </form>
-                    <a href='/#'>
+                    <a href='/send_email'>
                         <Typography variant='subtitle2'>Forgot your Password?</Typography>
                     </a>
                     <a href='/register'>
