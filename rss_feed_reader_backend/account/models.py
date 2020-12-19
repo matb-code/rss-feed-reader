@@ -70,7 +70,8 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
 
     email_plaintext_message = "{}?token={}".format(
-                            instance.request.get_host()+"/confirm_password",
+                            "http://127.0.0.1:3000/confirm_password",
+                            #instance.request.get_host()+"/confirm_password",
                             reset_password_token.key)
     send_mail(
         # title:
