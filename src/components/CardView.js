@@ -7,6 +7,7 @@ import { CardContext } from '../Context/CardContext';
 
 import React from 'react';
 import { FeedContext } from '../Context/FeedContext';
+import { UserContext } from '../Context/UserContext';
 
 const useStyles = makeStyles({
     cardRoot: {
@@ -23,10 +24,12 @@ function CardView(props) {
     const contents = props.content;
     const {fetchArticles, bookmarkClicked, setBookmarkClicked, bookmarkArticle} = React.useContext(CardContext);
     const { userSources } = React.useContext(FeedContext);
+    const {setLoginMessage} = React.useContext(UserContext);
 
     React.useEffect(() => {
         console.log('Cardview useffect')
         fetchArticles()
+        setLoginMessage('')
     }, [userSources])
 
 

@@ -13,6 +13,7 @@ function UserContextProvider(props) {
     })
 
     const [isRegistered, setRegistered] = React.useState(false)
+    const [loginMessage, setLoginMessage] = React.useState('');    // for showing 'invalid credentials' message when needed
 
 
 
@@ -30,10 +31,12 @@ function UserContextProvider(props) {
                     setAuth(prev => ({ ...prev, isAuthenticated: true, token: data.token }));
                     localStorage.setItem('token', data.token);
                 }
-                else
+                else{
                     console.log('Errorrrr:: ', data)
+                    setLoginMessage('Oops, invalid credentials!');
+                }
             }).catch(err => {
-                console.log(err);
+                console.log('Error from catch , ', err);
                 // setAuth(prev => ({ ...prev, isAuthenticated: false }));
 
             })
@@ -73,7 +76,9 @@ function UserContextProvider(props) {
             registerUser,
             login,
             logout,
-            isRegistered
+            isRegistered,
+            loginMessage,
+            setLoginMessage
         }}>
             {props.children}
         </UserContext.Provider>

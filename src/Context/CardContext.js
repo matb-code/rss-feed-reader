@@ -41,7 +41,7 @@ function CardContextProvider(props) {
         fetch(`${BASE_URL}/api/feed/bookmark/add/${id}`, requestOptions)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
             }).catch(err => console.log(err));
     }
 
