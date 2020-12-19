@@ -64,7 +64,7 @@ function CardView(props) {
                             {bookmarkClicked.clicked && bookmarkClicked.clickId === e.id ? <BookmarkIcon /> : 
                             <BookmarkBorderIcon />}
                         </IconButton>
-                        <a href={e.link}>
+                        <a target="_blank" href={e.link}>
                             <h5>Read More...</h5>
                         </a>
                     </CardActions>
