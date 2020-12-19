@@ -3,6 +3,7 @@ import { Grid, makeStyles, Card, CardHeader, Avatar, Typography, CardContent, Ca
 import { FeedContext } from '../Context/FeedContext';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import PaginationButtons from './PaginationButtons';
+import CardView from './CardView';
 
 
 const useStyles = makeStyles({
@@ -45,43 +46,43 @@ function SourceView(props) {
 
     const content = sourceArticle.length >= postPerPage ? sourceArticle.slice(indexOfFirstPost, indexOfLastPost) : sourceArticle;
 
-    const cardList = content.map(e => {
-        return(
-            <Grid item key={e.id}>
-                <Card className={classes.cardRoot}>
-                    <CardHeader
-                        avatar={
-                        <Avatar src={e.source.source_logo} variant='rounded' />
-                        }
-                        title={
-                            <Typography style={{fontFamily: 'Roboto', lineHeight: 1.5}} variant='h6'>
-                            {e.title}
-                            </Typography>}
-                        subheader={new Date(e.published_date) + ' | ' + e.source.source_name}
-                    />
-                    <CardContent dangerouslySetInnerHTML={{__html: e.summary}} 
-                    style={{padding:10, fontSize: 16, fontFamily: 'Roboto', lineHeight: 1.5, textAlign: 'justify'}}>
-                    </CardContent>
-                    <CardActions disableSpacing>
-                        <IconButton aria-label="add to favorites">
-                             <BookmarkBorderIcon />
-                        </IconButton>
-                        <a target="_blank" href={e.link}>
-                            <h5>{'Go to the site >>>'}</h5>
-                        </a>
-                    </CardActions>
-                </Card>
-            </Grid>
+    // const cardList = content.map(e => {
+    //     return(
+    //         <Grid item key={e.id}>
+    //             <Card className={classes.cardRoot}>
+    //                 <CardHeader
+    //                     avatar={
+    //                     <Avatar src={e.source.source_logo} variant='rounded' />
+    //                     }
+    //                     title={
+    //                         <Typography style={{fontFamily: 'Roboto', lineHeight: 1.5}} variant='h6'>
+    //                         {e.title}
+    //                         </Typography>}
+    //                     subheader={new Date(e.published_date) + ' | ' + e.source.source_name}
+    //                 />
+    //                 <CardContent dangerouslySetInnerHTML={{__html: e.summary}} 
+    //                 style={{padding:10, fontSize: 16, fontFamily: 'Roboto', lineHeight: 1.5, textAlign: 'justify'}}>
+    //                 </CardContent>
+    //                 <CardActions disableSpacing>
+    //                     <IconButton aria-label="add to favorites">
+    //                          <BookmarkBorderIcon />
+    //                     </IconButton>
+    //                     <a target="_blank" href={e.link}>
+    //                         <h5>{'Go to the site >>>'}</h5>
+    //                     </a>
+    //                 </CardActions>
+    //             </Card>
+    //         </Grid>
             
-        )
-    })
+    //     )
+    // })
     return (
         <Grid container direction='column'>
             <Grid item>
                 <h1>{sourceArticle.length?sourceArticle[0].source.source_name:'placeholder'}</h1>
                 <h3 className={classes.heading2}>Get all from {sourceArticle.length?sourceArticle[0].source.source_name: 'placeholder'} here!</h3>
             </Grid>
-            {cardList}
+            <CardView content={content} />
             <Grid item style={{padding: '0 15vw'}}>
              {content.length >= 10? <PaginationButtons totalPosts={len} postsPerPage={postPerPage} setCurPage={setCurPage}/> : <div />}
             </Grid>
