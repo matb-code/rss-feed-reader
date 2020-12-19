@@ -15,7 +15,13 @@ function UserContextProvider(props) {
     const [isRegistered, setRegistered] = React.useState(false)
     const [loginMessage, setLoginMessage] = React.useState('');    // for showing 'invalid credentials' message when needed
 
+    //to show errors while signing up
+    const [signupErrorMessage, setSignupErrorMessage] = React.useState('');
 
+    const [emailMessage, setEmailMessage] = React.useState('');  
+    const [displayNameMessage, setDisplyNameMessage] = React.useState('');
+    const [passwordMessage, setPasswordMessage] = React.useState('');
+    const [confirmpasswordMessage, setConfirmPasswordMessage] = React.useState('');
 
     async function login(loginCred) {
         const requestOptions = {
@@ -50,8 +56,19 @@ function UserContextProvider(props) {
         fetch(`${BASE_URL}/api/account/register`, requestOptions)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                console.log('Register user response === ', typeof data ,data);
+                if (data.response === "successfully registered new user."){
                 setRegistered(!isRegistered);
+                }
+                else{
+                    console.log('Not signed uop, ', data.email)
+                    if(data.email != undefined){
+                        setSignupErrorMessage('Email error');
+                        console.log('hardcoded: ', data.response.email);
+                        console.log('Not hard coded: ', signupErrorMessage);
+                    }
+                }
+
             }).catch(err => {
                 //console.log(err);
             })
@@ -78,7 +95,12 @@ function UserContextProvider(props) {
             logout,
             isRegistered,
             loginMessage,
-            setLoginMessage
+            setLoginMessage,
+            emailMessage,
+            displayNameMessage,
+            passwordMessage,
+            confirmpasswordMessage,
+            signupErrorMessage
         }}>
             {props.children}
         </UserContext.Provider>
