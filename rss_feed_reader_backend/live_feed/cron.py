@@ -4,7 +4,8 @@ import datetime
 def get_feed():
     try:
         articles = Article.insert_articles_from_sources()
-        # Article.insert_articles_from_sources()
+        #Article.insert_articles_from_sources()
         Log.objects.create(status="S")
-    except Exception:
+    except Exception as e:
+        print(e)
         Log.objects.create(status="F")

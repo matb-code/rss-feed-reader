@@ -1,5 +1,5 @@
 from django.urls import path
-from feed.api.views import user_source, user_source_follow, user_source_unfollow, user_article, user_article_bookmark, user_article_bookmark_add,user_article_bookmark_remove
+from feed.api.views import user_source, user_source_follow, user_source_unfollow, user_article, user_article_bookmark, user_article_bookmark_add,user_article_bookmark_remove, article_from_source
 
 
 app_name = 'feed'
@@ -7,6 +7,7 @@ app_name = 'feed'
 urlpatterns = [
 	path('source', user_source, name="user_source"),
     path('article', user_article, name="user_article"),
+    path('article/source/<source_id>', article_from_source, name="article_from_source"),
     path('follow/<id>', user_source_follow, name="user_source_follow"),
     path('unfollow/<id>', user_source_unfollow, name="user_source_unfollow"),
     path('follow/<id>/<folder_name>', user_source_follow, name="user_source_follow"),

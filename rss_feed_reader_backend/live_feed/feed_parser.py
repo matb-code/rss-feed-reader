@@ -21,10 +21,9 @@ def get_article(parsed):
         articles.append({
             "guid"  : entry["id"],
             "title" : entry["title"],
-            "link"  : entry["link"],
+            "link"  : entry["link"] if "link" in entry else parsed["feed"]["link"],
             "published_date" : (datetime.datetime(*entry["published_parsed"][:6]) - datetime.timedelta(hours=5,minutes=45))
                                 .replace(tzinfo=pytz.utc),
             "summary"   :   entry["summary"],
-            "tags"  :   ",".join(list(map(lambda x:x.term,entry["tags"])))
         })
     return articles

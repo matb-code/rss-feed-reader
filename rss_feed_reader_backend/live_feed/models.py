@@ -32,11 +32,9 @@ class Article(models.Model):
     title = models.CharField(blank=False,max_length=200)
     summary = models.TextField(blank=False)
     link = models.CharField(blank=False,max_length=200)
-    tags = models.CharField(blank=False,max_length=200)
     published_date = models.DateTimeField()
     date_added = models.DateTimeField(default=timezone.now)
-    classified = models.BooleanField(default=False)
-    source = models.ForeignKey(Source,on_delete=models.PROTECT)
+    source = models.ForeignKey(Source,on_delete=models.CASCADE)
     class Meta:
         unique_together = ["guid", "source"]
     
@@ -53,7 +51,6 @@ class Article(models.Model):
                         link=parsed_article["link"],
                         published_date=str(parsed_article["published_date"]),
                         summary=parsed_article["summary"],
-                        tags=parsed_article["tags"],
                         source=source
                     )
                 articles.append(article)

@@ -33,6 +33,20 @@ def user_article(request):
         serializer = UserArticleSerializer(user_articles, many = True)
         return Response(serializer.data)
 
+@api_view(['POST', ])
+@permission_classes((IsAuthenticated, ))
+def article_from_source(request,source_id):
+    user = request.user
+    try:
+        source = UserSource.objects.get(source=source_id,account=user)
+    except ObjectDoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'POST':
+        articles = Article.objects.filter(source=source.source)
+        serializer = UserArticleSerializer(articles, many = True)
+        return Response(serializer.data)
+
 @api_view(['GET', ])
 @permission_classes((IsAuthenticated, ))
 def user_source(request):
