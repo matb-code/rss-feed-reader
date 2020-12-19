@@ -77,7 +77,7 @@ function UserContextProvider(props) {
     function sendForReset(resetContent){
         const requestOptions = {
             method: 'POST',
-            header: {'Content-Type': 'application/json'},
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(resetContent)
         }
     

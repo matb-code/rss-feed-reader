@@ -49,13 +49,13 @@ function ResetPassword({location}) {
             setErrorMessage('Password Fields donot match!');
         }else{
             console.log('OK!');
-            const rc = {Password: fields['new_password'], Token: token};
+            const rc = {password: fields['new_password'], token: token};
             console.log(rc);
             sendForReset(rc);
-            if(resetOk){
-                return <Redirect to='/' /> 
-            }
         }
+    }
+    if(resetOk){
+        return <Redirect to='/' />
     }
 
     return (
