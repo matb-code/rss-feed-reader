@@ -72,7 +72,7 @@ function CardView(props) {
                             <BookmarkBorderIcon />}
                         </IconButton>
                         <a target="_blank" href={e.link}>
-                            <h5>Read More...</h5>
+                            <h5>{'Go to the site >>>'}</h5>
                         </a>
                     </CardActions>
                 </Card>

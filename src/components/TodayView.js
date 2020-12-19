@@ -18,7 +18,7 @@ function TodayView(){
     const {fetchUserSources} = React.useContext(FeedContext);
 
     const [currentPage, setCurPage] = React.useState(1);
-    const [postPerPage] = React.useState(5);
+    const [postPerPage] = React.useState(10);
 
     const len = content.length;
 
@@ -42,7 +42,7 @@ function TodayView(){
 
             <CardView content={postsToDisplay}/>
             <Grid item style={{padding: '0 15vw'}}>
-            <PaginationButtons totalPosts={len} postsPerPage={postPerPage} setCurPage={setCurPage}/>
+            {content.length > 10? <PaginationButtons totalPosts={len} postsPerPage={postPerPage} setCurPage={setCurPage}/> : <div />}
             </Grid>
 
         </Grid>

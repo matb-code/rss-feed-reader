@@ -45,7 +45,7 @@ function FeedInfoCard(props) {
                         </Grid>
 
                         <Grid item>
-                            <a href= {feed.link}><Typography variant='subtitle2'>{feed.link}</Typography></a>
+                            <a target='_blank' href= {feed.link}><Typography variant='subtitle2'>{feed.link}</Typography></a>
                         </Grid>
 
                         <Grid item style={{marginTop: 20}}>
