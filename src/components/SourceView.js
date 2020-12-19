@@ -34,6 +34,8 @@ function SourceView(props) {
         fetchSourceArticle(source_id);
     }, [source_id])
 
+    console.log(sourceArticle);
+
     const [currentPage, setCurPage] = React.useState(1);
     const [postPerPage] = React.useState(10);
     const len = sourceArticle.length;
@@ -41,7 +43,7 @@ function SourceView(props) {
     const indexOfLastPost = currentPage * postPerPage;
     const indexOfFirstPost = indexOfLastPost - postPerPage;
 
-    const content = sourceArticle.length > postPerPage ? sourceArticle.slice(indexOfFirstPost, indexOfLastPost) : sourceArticle;
+    const content = sourceArticle.length >= postPerPage ? sourceArticle.slice(indexOfFirstPost, indexOfLastPost) : sourceArticle;
 
     const cardList = content.map(e => {
         return(
@@ -76,8 +78,8 @@ function SourceView(props) {
     return (
         <Grid container direction='column'>
             <Grid item>
-                <h1>{sourceArticle[0].source.source_name}</h1>
-                <h3 className={classes.heading2}>Get all from {sourceArticle[0].source.source_name} here!</h3>
+                <h1>{sourceArticle.length?sourceArticle[0].source.source_name:'placeholder'}</h1>
+                <h3 className={classes.heading2}>Get all from {sourceArticle.length?sourceArticle[0].source.source_name: 'placeholder'} here!</h3>
             </Grid>
             {cardList}
             <Grid item style={{padding: '0 15vw'}}>
