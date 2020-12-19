@@ -32,14 +32,16 @@ const Login = () => {
         password: null
     })
 
-    const {auth, setAuth, login, isRegistered} = React.useContext(UserContext);
+    const {auth, setAuth, login, isRegistered, loginMessage} = React.useContext(UserContext);
+    // const [loginMessage, setLoginMessage] = React.useState('');    // for showing 'invalid credentials' message when needed
 
     React.useEffect(() => {
         const token = localStorage.getItem("token");
         if (token){
-            console.log('Found token ==> ', token)
+            // console.log('Found token ==> ', token)
             setAuth(prev => ({ ...prev, isAuthenticated: true, token: token }));
         }
+        console.log('This is login page ', loginMessage)
     }, []);
 
     if (auth.isAuthenticated){
@@ -96,6 +98,18 @@ const Login = () => {
                         onChange={handleChange}
                     />
                     <br />
+                        {loginMessage.length>0 ? 
+                            <div>
+                            <span style={{color:"red"}}>
+                                {loginMessage}
+                            </span>
+                            <br />
+                            <br />
+                                </div>
+                            : <div></div>
+                        }
+
+
                     <Button type='submit' variant='filled' style={{color: 'white', backgroundColor:'green', marginBottom:15}}> 
                         Log In 
                     </Button>
