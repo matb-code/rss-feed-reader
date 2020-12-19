@@ -10,6 +10,7 @@ import CardContextProvider from '../Context/CardContext';
 import ReadLater from './ReadLater';
 import AddFeed from './AddFeed';
 import EditFeed from './EditFeed';
+import SourceView from './SourceView';
 import PrivateRoute from './PrivateRoute';
 
 
@@ -44,6 +45,7 @@ function Home() {
                   <Route path='/readlater' component={ReadLater} />
                   <Route path='/addfeed' component={AddFeed} />
                   <Route path='/editfeed' component={EditFeed} />
+                  <Route path='/source/:id' component={SourceView} />
                 </Switch>
               </CardContextProvider>
             </Grid>

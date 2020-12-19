@@ -1,3 +1,4 @@
+import { CodeSharp } from '@material-ui/icons';
 import React, {useState, createContext} from 'react';
 import {UserContext} from './UserContext';
 
@@ -14,6 +15,7 @@ function FeedContextProvider(props) {
     const [folderFeeds, setFolderFeeds] = useState([]);
     const {auth} = React.useContext(UserContext);
     const [userSources, setUserSources] = useState([]);
+    const [sourceArticle, setSourceArticle] = useState([]);
    
 
     function getFeedFolder(){
@@ -125,6 +127,19 @@ function FeedContextProvider(props) {
             })
     }    
     
+    async function fetchSourceArticle(id){
+        console.log(id)
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json', 'Authorization': `Token ${auth.token}`}
+        }
+
+        fetch(`${BASE_URL}/api/feed/article/source/${id}`, requestOptions)
+            .then(res => res.json())
+            .then(res => {
+                setSourceArticle(res);
+            })
+    }
 
     return (
         <FeedContext.Provider value={{
@@ -143,7 +158,9 @@ function FeedContextProvider(props) {
             setUnfollow,
             followFeed,
             unfollowFeed,
-            getUserSourcesTitle
+            getUserSourcesTitle,
+            sourceArticle,
+            fetchSourceArticle
             }}
         >
             {props.children}

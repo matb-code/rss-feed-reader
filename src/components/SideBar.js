@@ -81,7 +81,7 @@ function SideBar(props) {
                         <MenuList component="div" disablePadding className = {classes.nested2}>
                             {folder.length ? (folder.map( feed => {
                                 return (
-                                    <MenuItem key={feed.id} className={classes.nested2}>
+                                    <MenuItem key={feed.id} className={classes.nested2} component={Link} to={'/source/' + feed.source.id} selected={'/source/' + feed.source.id === pathname}>
                                         <Avatar variant='square' src={feed.source.logo_link} style={{height: 20, width:20}} />
                                         <ListItemText style={{marginLeft: 10, fontSize:10}}>{feed.source.title}</ListItemText>
                                     </MenuItem>
