@@ -49,7 +49,6 @@ function CardView(props) {
             <Grid item key={e.id}>
                 <Card className={classes.cardRoot}>
                     <CardHeader
-                        //titleTypographyProps={{variant: 'headline', fontFamily: 'Roboto'}}
                         avatar={
                         <Avatar src={e.source.source_logo} variant='rounded' />
                         }
@@ -59,10 +58,6 @@ function CardView(props) {
                             </Typography>}
                         subheader={new Date(e.published_date) + ' | ' + e.source.source_name}
                     />
-                    {/* <CardMedia
-                        className={classes.media}
-                        image={e.image}
-                    /> */}
                     <CardContent dangerouslySetInnerHTML={{__html: e.summary}} 
                     style={{padding:10, fontSize: 16, fontFamily: 'Roboto', lineHeight: 1.5, textAlign: 'justify'}}>
                     </CardContent>

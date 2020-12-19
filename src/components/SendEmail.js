@@ -4,6 +4,18 @@ import {Redirect } from 'react-router-dom';
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import {UserContext} from '../Context/UserContext';
 
+function sendLink(email){
+    const requestOptions = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email: email})
+    } 
+    fetch('http://127.0.0.1:8000/api/account/password_reset/', requestOptions)
+        .then(res => res.json() )
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+}
+
 const theme = createMuiTheme({
     typography:{
       h4: {
@@ -24,7 +36,17 @@ const theme = createMuiTheme({
 })
 
 function SendEmail() {
+    const [email, setEmail] = React.useState();
 
+    const handleChange = (e) => {
+        setEmail(e.target.value);
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(email)
+        sendLink(email);
+    }
 
     return (
         <ThemeProvider theme={theme}>
@@ -41,7 +63,7 @@ function SendEmail() {
 
             <Grid style={{paddingLeft:60}}>
             <Typography variant='subtitle1'>Enter Email to receive link for changing password.</Typography>
-                    <form >
+                    <form onSubmit={handleSubmit}>
                         <TextField 
                             variant="outlined"
                             color='secondary'
@@ -50,6 +72,7 @@ function SendEmail() {
                             placeholder='test@test.com'
                             style={{marginBottom:15}}
                             id='email'
+                            onChange={handleChange}
                         />
                         <br />
                         <Button variant='outlined'

@@ -12,6 +12,7 @@ function UserContextProvider(props) {
         user: null
     })
 
+    const [resetOk, setResetOk] = React.useState(false);
     const [isRegistered, setRegistered] = React.useState(false)
     const [loginMessage, setLoginMessage] = React.useState('');    // for showing 'invalid credentials' message when needed
 
@@ -56,6 +57,24 @@ function UserContextProvider(props) {
                 //console.log(err);
             })
     }
+    function sendForReset(resetContent){
+        const requestOptions = {
+            method: 'POST',
+            header: {'Content-Type': 'application/json'},
+            body: JSON.stringify(resetContent)
+        }
+    
+        fetch('http://127.0.0.1:8000/api/account/password_resetconfirm/', requestOptions)
+            .then(res => res.json())
+            .then(res => {
+                console.log(res);
+                setResetOk(true);
+            })
+            .catch(err => console.log(err))
+        
+    }
+
+    
 
     const logout = () => {
         localStorage.clear();
@@ -78,7 +97,9 @@ function UserContextProvider(props) {
             logout,
             isRegistered,
             loginMessage,
-            setLoginMessage
+            setLoginMessage,
+            sendForReset,
+            resetOk
         }}>
             {props.children}
         </UserContext.Provider>
