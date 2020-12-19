@@ -62,13 +62,8 @@ function UserContextProvider(props) {
                 }
                 else{
                     console.log('Not signed uop, ', data.email)
-                    if(data.email != undefined){
-                        setSignupErrorMessage('Email error');
-                        console.log('hardcoded: ', data.response.email);
-                        console.log('Not hard coded: ', signupErrorMessage);
+                    setSignupErrorMessage('Error in sign up!');
                     }
-                }
-
             }).catch(err => {
                 //console.log(err);
             })
@@ -100,7 +95,8 @@ function UserContextProvider(props) {
             displayNameMessage,
             passwordMessage,
             confirmpasswordMessage,
-            signupErrorMessage
+            signupErrorMessage, 
+            setSignupErrorMessage
         }}>
             {props.children}
         </UserContext.Provider>

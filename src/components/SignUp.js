@@ -30,7 +30,7 @@ function SignUp() {
         password: null,
         password2: null
     })
-    const {registerUser, isRegistered, emailMessage, displayNameMessage, passwordMessage, confirmPasswordMessage} = React.useContext(UserContext);
+    const { registerUser, isRegistered, emailMessage, displayNameMessage, passwordMessage, confirmPasswordMessage, signupErrorMessage} = React.useContext(UserContext);
 
 
 
@@ -105,6 +105,16 @@ function SignUp() {
                         />
                         <span style={{ color: "red" }}>{confirmPasswordMessage}</span>
                         <br />
+                        {signupErrorMessage.length > 0 ?
+                            <div>
+                                <span style={{ color: "red" }}>
+                                    {signupErrorMessage}
+                                </span>
+                                <br />
+                                <br />
+                            </div>
+                            : <div></div>
+                        }
                         <Button variant='outlined'
                             type='submit' 
                             style={{color: 'white', backgroundColor:'green', marginBottom:15}} 

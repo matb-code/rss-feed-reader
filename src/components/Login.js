@@ -32,7 +32,7 @@ const Login = () => {
         password: null
     })
 
-    const {auth, setAuth, login, isRegistered, loginMessage} = React.useContext(UserContext);
+    const { auth, setAuth, login, isRegistered, loginMessage, setSignupErrorMessage} = React.useContext(UserContext);
     // const [loginMessage, setLoginMessage] = React.useState('');    // for showing 'invalid credentials' message when needed
 
     React.useEffect(() => {
@@ -41,7 +41,8 @@ const Login = () => {
             // console.log('Found token ==> ', token)
             setAuth(prev => ({ ...prev, isAuthenticated: true, token: token }));
         }
-        console.log('This is login page ', loginMessage)
+        // console.log('This is login page ', loginMessage)
+        setSignupErrorMessage('');
     }, []);
 
     if (auth.isAuthenticated){
