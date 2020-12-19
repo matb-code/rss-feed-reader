@@ -3,6 +3,7 @@ import CardView from './CardView';
 import { Grid, makeStyles } from '@material-ui/core';
 import {CardContext} from '../Context/CardContext';
 import {FeedContext} from '../Context/FeedContext';
+import PaginationButtons from './PaginationButtons';
 
 const useStyles = makeStyles({
     heading2: {
@@ -12,8 +13,20 @@ const useStyles = makeStyles({
 
 function TodayView(){
     const classes = useStyles();
+
     const {content} = React.useContext(CardContext);
     const {fetchUserSources} = React.useContext(FeedContext);
+
+    const [currentPage, setCurPage] = React.useState(1);
+    const [postPerPage] = React.useState(5);
+
+    const len = content.length;
+
+    const indexOfLastPost = currentPage * postPerPage;
+    const indexOfFirstPost = indexOfLastPost - postPerPage;
+
+    const postsToDisplay = content.slice(indexOfFirstPost, indexOfLastPost);
+    
 
     React.useEffect(() => {
         console.log('Todayview Useffect Called!')
@@ -27,7 +40,10 @@ function TodayView(){
                 <h3 className={classes.heading2}>The insights you need to keep ahead</h3>
             </Grid>
 
-            <CardView content={content}/>
+            <CardView content={postsToDisplay}/>
+            <Grid item style={{padding: '0 15vw'}}>
+            <PaginationButtons totalPosts={len} postsPerPage={postPerPage} setCurPage={setCurPage}/>
+            </Grid>
 
         </Grid>
     )
