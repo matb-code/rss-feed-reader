@@ -37,6 +37,7 @@ function CardView(props) {
     let bookmarkedIdList = []
 
     const handleBookmark = (id) => {
+        setBookmarkClicked(b => ({...b, [id]:!b.id}))
         bookmarkArticle(id);
     }
     const cardList = contents.map(e => {
@@ -58,7 +59,7 @@ function CardView(props) {
                     </CardContent>
                     <CardActions disableSpacing>
                         <IconButton aria-label="add to favorites" onClick={() => {handleBookmark(e.id)}}>
-                            {(e.id in bookmarkedIdList) ? <BookmarkIcon /> : 
+                            {bookmarkClicked[e.id] ? <BookmarkIcon /> : 
                             <BookmarkBorderIcon />}
                         </IconButton>
                         <a target="_blank" href={e.link}>

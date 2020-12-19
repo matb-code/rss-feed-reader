@@ -16,7 +16,7 @@ function ReadLater() {
     React.useEffect(() => {
         console.log('Bookmarks');
         fetchBookmarkedArticles();
-    }, [])
+    }, [bookmarkedContent])
     return (
         <div>
             <Grid container direction='column'>

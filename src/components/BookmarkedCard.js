@@ -1,4 +1,4 @@
-import { Grid, makeStyles, Avatar, IconButton} from '@material-ui/core';
+import { Grid, makeStyles, Avatar, IconButton, Typography} from '@material-ui/core';
 import { Card, CardHeader, CardActions, CardContent } from '@material-ui/core';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
@@ -10,6 +10,7 @@ import { FeedContext } from '../Context/FeedContext';
 
 const useStyles = makeStyles({
     cardRoot: {
+        width: 800,
         maxWidth: '100vw',
         marginBottom: 25,
       },
@@ -34,10 +35,7 @@ function BookmarkedCard(props) {
     const handleBookmark = (id) => {
         unbookmarkArticle(id);
 
-        setBookmarkClicked(bClicked => ({
-            clicked: !bClicked.clicked,
-            clickId: id
-        }));
+        setBookmarkClicked(bClicked => ({...bClicked, [id]: !bClicked}));
     }
     const cardList = contents.map(e => {
         return(
@@ -47,21 +45,24 @@ function BookmarkedCard(props) {
                         avatar={
                         <Avatar src={e.article.source.source_logo} variant='rounded' />
                         }
-                        title={e.title}
-                        subheader={e.article.published_date + ' | ' + e.article.source.source_name}
+                        title={
+                            <Typography style={{fontFamily: 'Roboto', lineHeight: 1.5}} variant='h6'>
+                            {e.article.title}
+                            </Typography>}
+                        subheader={new Date(e.article.published_date) + ' | ' + e.article.source.source_name}
                     />
                     {/* <CardMedia
                         className={classes.media}
                         image={e.image}
                     /> */}
-                    <CardContent dangerouslySetInnerHTML={{__html: e.article.summary}}>
+                    <CardContent dangerouslySetInnerHTML={{__html: e.article.summary}}
+                    style={{padding:10, fontSize: 16, fontFamily: 'Roboto', lineHeight: 1.5, textAlign: 'justify'}}>
                     </CardContent>
                     <CardActions disableSpacing>
                         <IconButton aria-label="add to favorites" onClick={() => {handleBookmark(e.article.id)}}>
-                            {bookmarkClicked.clicked && bookmarkClicked.clickId === e.id ? <BookmarkIcon /> : 
-                            <BookmarkBorderIcon />}
+                            <BookmarkIcon />
                         </IconButton>
-                        <a href={e.link}>
+                        <a target="_blank" href={e.article.link}>
                             <h5>Read More...</h5>
                         </a>
                     </CardActions>

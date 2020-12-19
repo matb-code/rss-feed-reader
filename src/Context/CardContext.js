@@ -10,7 +10,7 @@ function CardContextProvider(props) {
     const [content, setContent] = React.useState([]);
 
     const [bookmarkedContent, setBookmarkedContent] = React.useState([]);
-    const [bookmarkClicked, setBookmarkClicked] = React.useState([]);
+    const [bookmarkClicked, setBookmarkClicked] = React.useState({});
     const {auth} = React.useContext(UserContext);
 
     React.useEffect(() => {

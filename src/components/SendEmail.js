@@ -35,8 +35,9 @@ const theme = createMuiTheme({
     
 })
 
-function SendEmail() {
+function SendEmail(props) {
     const [email, setEmail] = React.useState();
+    const [sent, setSent] = React.useState(false);
 
     const handleChange = (e) => {
         setEmail(e.target.value);
@@ -44,9 +45,12 @@ function SendEmail() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email)
+        console.log(email);
         sendLink(email);
+        props.history.push('/');
     }
+
+   
 
     return (
         <ThemeProvider theme={theme}>

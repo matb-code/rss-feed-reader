@@ -11,6 +11,10 @@ const useStyles = makeStyles({
         color: '#948479',
         marginBottom: 20
     },
+    heading3: {
+        color: '#948479',
+        fontSize: 12
+    },
     cardRoot: {
         width: 800,
         maxWidth: '100vw',
@@ -81,6 +85,9 @@ function SourceView(props) {
             <Grid item>
                 <h1>{sourceArticle.length?sourceArticle[0].source.source_name:'placeholder'}</h1>
                 <h3 className={classes.heading2}>Get all from {sourceArticle.length?sourceArticle[0].source.source_name: 'placeholder'} here!</h3>
+                <Grid item>
+                    <p className={classes.heading3}>LATEST</p>
+                </Grid>
             </Grid>
             <CardView content={content} />
             <Grid item style={{padding: '0 15vw'}}>

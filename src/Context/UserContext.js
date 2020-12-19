@@ -117,7 +117,8 @@ function UserContextProvider(props) {
             passwordMessage,
             confirmpasswordMessage,
             signupErrorMessage, 
-            setSignupErrorMessage
+            setSignupErrorMessage,
+            setRegistered
         }}>
             {props.children}
         </UserContext.Provider>

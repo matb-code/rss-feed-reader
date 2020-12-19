@@ -34,7 +34,7 @@ function SideBar(props) {
 
     const { location: {pathname} } = props
     const classes = useStyles();
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState({});
     const [feedOpen, setFeedOpen] = React.useState({open:false, id:null});
     const {feedCategory, fetchUserSources, userSources} = React.useContext(FeedContext);
     const [folder, setFolder] = React.useState([])
@@ -47,7 +47,7 @@ function SideBar(props) {
     
 
     const handleFeedOpen = (id) => {
-        setFeedOpen(prev => ({open: !prev.open, id: id}))
+        setFeedOpen(prev => ({[id]: !prev[id]}))
         const f = userSources.filter(x => x.folder === id );
         setFolder(f);
     }
@@ -73,17 +73,17 @@ function SideBar(props) {
         <div key={text}>
             <MenuItem onClick={() => handleFeedOpen(text)}>
                 <ListItemIcon>
-                    {feedOpen.open && (feedOpen.id === text) ? <ExpandLess /> : <ArrowForwardIosIcon style={{width:15, height:15, paddingLeft:5}}/>}
+                    {feedOpen[text] ? <ExpandLess /> : <ArrowForwardIosIcon style={{width:15, height:15, paddingLeft:5}}/>}
                 </ListItemIcon>
                 <ListItemText>{text}</ListItemText>
             </MenuItem>
-            <Collapse in={feedOpen.open && (feedOpen.id === text)} timeout="auto" unmountOnExit>
+            <Collapse in={feedOpen[text]}  timeout='auto'>
                         <MenuList component="div" disablePadding className = {classes.nested2}>
                             {folder.length ? (folder.map( feed => {
                                 return (
                                     <MenuItem key={feed.id} className={classes.nested2} component={Link} to={'/source/' + feed.source.id} selected={'/source/' + feed.source.id === pathname}>
                                         <Avatar variant='square' src={feed.source.logo_link} style={{height: 20, width:20}} />
-                                        <ListItemText style={{marginLeft: 10, fontSize:10}}>{feed.source.title}</ListItemText>
+                                        <ListItemText style={{marginLeft: 10, fontSize:10,textOverflow:'ellipsis', overflow:'hidden'}}>{feed.source.title}</ListItemText>
                                     </MenuItem>
                                 )
                             })):<div></div>
@@ -107,7 +107,7 @@ function SideBar(props) {
                         <ListItemIcon>
                             <DynamicFeedIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Today"/>
+                        <ListItemText primary="All"/>
                     </MenuItem>
 
                     <MenuItem component={Link} to='/readlater' selected={'/readlater' === pathname} onClick={handleBookmark} >
@@ -120,7 +120,7 @@ function SideBar(props) {
                     <ListItem>
                         <Grid container>
                             <Grid item xs={4}>
-                                <Typography style={{marginTop: 4}}>Feeds</Typography>
+                                <Typography style={{marginTop: 4}}>Collections</Typography>
                             </Grid>
                             <Grid item xs={6}>
                                 <Button onClick={handleClick} style={{marginLeft:30}}>
@@ -139,12 +139,6 @@ function SideBar(props) {
                     
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <MenuList component="div" disablePadding className = {classes.nested}>
-                            <MenuItem >
-                                <ListItemIcon>
-                                    <Reorder />
-                                </ListItemIcon>
-                                <ListItemText primary="All" />
-                            </MenuItem>
                             {feedsList}
                             
                         </MenuList>
