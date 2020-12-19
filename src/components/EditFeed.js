@@ -60,7 +60,7 @@ function EditFeed() {
                             <Grid item xs={1}><Avatar variant='rounded' src={source.source.logo_link} style={{height: 50, width:50}} /> </Grid> 
                             <Grid item container xs={8} direction='column'>
                                 <Grid item><p>{source.source.title}</p></Grid>
-                                <Grid item xs={1} 
+                                <Grid item xs={2} 
                                     style={{backgroundColor: 'green', color:'white', padding:5, borderRadius:4, fontSize:14}}
                                 >
                                     {source.folder}

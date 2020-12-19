@@ -28,6 +28,7 @@ function CardContextProvider(props) {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
+                data.sort((a,b) => new Date(b.published_date) - new Date(a.published_date));
                 setContent(data);
             }).catch(err => console.log(err));
     }

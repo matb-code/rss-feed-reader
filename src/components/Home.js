@@ -10,6 +10,7 @@ import CardContextProvider from '../Context/CardContext';
 import ReadLater from './ReadLater';
 import AddFeed from './AddFeed';
 import EditFeed from './EditFeed';
+import PrivateRoute from './PrivateRoute';
 
 
 
@@ -19,7 +20,7 @@ function Home() {
     <Router>
     <div className="App">
     <FeedContextProvider>
-      <Grid container style={{height: '100vh', overflow:'hidden'}}>
+      <Grid container style={{height: '100vh'}}>
           <Grid item xs={2} style={{backgroundColor: '#F6F7F8'}}>
             <CardContextProvider>
               <SideBar />
