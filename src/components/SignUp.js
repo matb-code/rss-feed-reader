@@ -30,11 +30,14 @@ function SignUp() {
         password: null,
         password2: null
     })
-    const {registerUser, isRegistered} = React.useContext(UserContext);
+    const {registerUser, isRegistered, emailMessage, displayNameMessage, passwordMessage, confirmPasswordMessage} = React.useContext(UserContext);
+
+
 
     if(isRegistered){
         return <Redirect to='/home' />
     }
+
 
     const handleChange = (e) => {
         setReg(prev => ({...prev, [e.target.id]: e.target.value}));
@@ -70,6 +73,7 @@ function SignUp() {
                             id='email'
                             onChange={handleChange}
                         />
+                        <span style={{color: "red"}}>{emailMessage}</span>
                         <TextField 
                             variant="outlined"
                             color='secondary'
@@ -79,6 +83,7 @@ function SignUp() {
                             id='display_name'
                             onChange={handleChange}
                         />
+                        <span style={{ color: "red" }}>{displayNameMessage}</span>
                         <TextField 
                             variant="outlined"
                             color='secondary'
@@ -88,6 +93,7 @@ function SignUp() {
                             id='password'
                             onChange={handleChange}
                         />
+                        <span style={{ color: "red" }}>{passwordMessage}</span>
                         <TextField 
                             variant="outlined"
                             color='secondary'
@@ -97,6 +103,7 @@ function SignUp() {
                             id='password2'
                             onChange={handleChange}
                         />
+                        <span style={{ color: "red" }}>{confirmPasswordMessage}</span>
                         <br />
                         <Button variant='outlined'
                             type='submit' 
