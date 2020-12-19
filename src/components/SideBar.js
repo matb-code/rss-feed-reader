@@ -34,7 +34,7 @@ function SideBar(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
     const [feedOpen, setFeedOpen] = React.useState({open:false, id:null});
-    const {feedCategory, folderFeeds, fetchUserSources, userSources} = React.useContext(FeedContext);
+    const {feedCategory, fetchUserSources, userSources} = React.useContext(FeedContext);
     const [folder, setFolder] = React.useState([])
     const {fetchArticles, fetchBookmarkedArticles} = React.useContext(CardContext);
 

@@ -5,34 +5,49 @@ import {FeedContext} from '../Context/FeedContext'
 
 
 function EditFeed() {
-    const {folderFeeds, userSources, unfollowFeed} = React.useContext(FeedContext);
-    const [displayValues, setDisplayValues] = React.useState(folderFeeds);
+    const {userSources, unfollowFeed, getFeedFolder, feedCategory} = React.useContext(FeedContext);
+    const [displayValues, setDisplayValues] = React.useState(userSources);
+    const [search, setSearch] = React.useState('');
     console.log(userSources);
 
     const handleChange = (e) => {
         const opt = e.target.value;
         if(opt !== 'All'){
-            const newDisplayValues = folderFeeds.length ? folderFeeds.filter(d => d.folder === e.target.value) : []
+            const newDisplayValues = userSources.length ? userSources.filter(d => d.folder === opt) : []
             setDisplayValues(newDisplayValues);
             console.log(displayValues);
         }else{
-            setDisplayValues(folderFeeds);
+            setDisplayValues(userSources);
             console.log(displayValues);
         } 
         
         
     }
 
+    const handleSearchChange = (e) => {
+        const s = e.target.value.toLowerCase();
+        setSearch(s);
+    }
+
     React.useEffect(() => {
+        setDisplayValues(userSources);
         console.log('EditFeed useEffect called!!!');
     }, [userSources])
 
     const handleUnfollow = (id) => {
         unfollowFeed(id);
     }
-
-    const followingList = userSources.length ? (userSources.map( source => {
+    console.log(getFeedFolder());
+    const followingList = displayValues.length ? (displayValues.filter( d => {
+        if(search === ''){
+            return d;
+        }else if(d.source.title.toLowerCase().includes(search)){
+            return d;
+        }
+    }
+    ).map( source => {
         return (
+            
             <Grid container direction='column' key={source.id} style={{marginTop: 10}}>
                 {/* <Grid item style={{marginBottom: 10}}>
                     <h2>{folderFeed.folder}</h2>
@@ -43,9 +58,16 @@ function EditFeed() {
                 
                         <Grid item container style={{paddingLeft: '5vw', padding:20}} spacing={2} >
                             <Grid item xs={1}><Avatar variant='rounded' src={source.source.logo_link} style={{height: 50, width:50}} /> </Grid> 
-                            <Grid item xs={8}><p>{source.source.title}</p></Grid>
+                            <Grid item container xs={8} direction='column'>
+                                <Grid item><p>{source.source.title}</p></Grid>
+                                <Grid item xs={1} 
+                                    style={{backgroundColor: 'green', color:'white', padding:5, borderRadius:4, fontSize:14}}
+                                >
+                                    {source.folder}
+                                </Grid>
+                            </Grid>
                             <Grid item xs={3}>
-                                <Button variant='outlined' onClick={() => handleUnfollow(source.source.id)}> Unfollow </Button>
+                                <Button variant='outlined' style={{marginTop:20}} onClick={() => handleUnfollow(source.source.id)}> Unfollow </Button>
                             </Grid>
                         </Grid>
             </Grid>
@@ -70,9 +92,9 @@ function EditFeed() {
                         style={{width: 150}}
                         >
                         <option aria-label="All" value="All">All </option>
-                        {folderFeeds.map(f => {
+                        {feedCategory.map(f => {
                             return (
-                                <option aria-label={f.folder} value={f.folder} key={f.folder}>{f.folder}</option>
+                                <option aria-label={f} value={f} key={f}>{f}</option>
                             )
                         })}
                         
@@ -90,8 +112,8 @@ function EditFeed() {
                             </InputAdornment>
                         }
                         style={{marginTop:15, width:'30vw'}}
-                        placeholder='Search'
-                        
+                        placeholder='Search Feed'
+                        onChange={handleSearchChange}
                         />
                     </form>
                 </Grid>

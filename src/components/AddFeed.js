@@ -8,7 +8,13 @@ import FeedInfoCard from './FeedInfoCard';
 
 function AddFeed() {
     const {fetchFeed} = React.useContext(FeedContext);
-    
+    const [search, setSearch] = React.useState('');
+
+    const handleChange = (e) => {
+        const s = e.target.value.toLowerCase()
+        setSearch(s);
+    }
+        
     const handleSubmit = (e) => {
         e.preventDefault();
         //console.log(e.target[0].value);
@@ -33,7 +39,7 @@ function AddFeed() {
                     }
                     style={{marginTop: 30, width:'60vw'}}
                     placeholder='Search Feed'
-                    
+                    onChange={handleChange}
                     />
                     <br/>
                     <Button variant='contained' style={{marginTop:20, backgroundColor: 'green', color:'white'}} onClick={handleSubmit}>Search</Button>
@@ -41,7 +47,7 @@ function AddFeed() {
             </Grid>
 
             <Grid item>
-                <FeedInfoCard />
+                <FeedInfoCard search={search}/>
             </Grid>
         </Grid>
         

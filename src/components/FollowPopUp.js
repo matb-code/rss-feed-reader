@@ -33,6 +33,12 @@ export default withRouter(function FollowPopUp(props) {
   const handleClose = () => {
     setFollow(false);
   };
+  React.useEffect(()=>{
+    setFollow(false);
+    //fetchUserSources();
+  }, [])
+
+  
 
   const handleMenuClick = (cat) => {
       console.log(props);
@@ -41,12 +47,18 @@ export default withRouter(function FollowPopUp(props) {
 
   }
   const handleChange = (e) => {
-        setFolder(e);
+        const s = e.target.value.toLowerCase();
+        setFolder(s);
   }
   
-  const menuList = feedCategory.map(cat => {
+  const menuList = feedCategory.filter(c => {
+    if (folder === ''){
+      return c;
+    }else if(c.toLowerCase().includes(folder)){
+      return c;
+    }
+  }).map(cat => {
       return(
-          cat.includes(folder) &&
           <MenuItem onClick={() => {handleMenuClick(cat)}} key={cat} style={{padding: '20px 10px'}}>
             {cat}
           </MenuItem>
@@ -55,7 +67,7 @@ export default withRouter(function FollowPopUp(props) {
 
   return (
     <div>
-      <Dialog disableBackdropClick disableEscapeKeyDown open={follow} onClose={handleClose}>
+      <Dialog open={follow} onClose={handleClose}>
         <DialogTitle>Save Feed</DialogTitle>
         <DialogContent>
           <form className={classes.container}>

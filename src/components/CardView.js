@@ -12,7 +12,7 @@ import { UserContext } from '../Context/UserContext';
 const useStyles = makeStyles({
     cardRoot: {
         maxWidth: '100vw',
-        marginBottom: 25,
+        marginBottom: 15,
       },
     media: {
         height: 140,
