@@ -7,7 +7,7 @@ import { UserContext } from '../Context/UserContext';
 
 
 const NavSection = () => {
-    const { logout } = React.useContext(UserContext);
+    const { logout} = React.useContext(UserContext);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const menuItem = [
         {id:1,
@@ -15,7 +15,7 @@ const NavSection = () => {
         onclick: () => {
             console.log('clicked logout');
             logout();
-        }
+        },
     }
     ]
     const {fetchFeed} = React.useContext(FeedContext);

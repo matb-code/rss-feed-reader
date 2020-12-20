@@ -5,10 +5,16 @@ import {FeedContext} from '../Context/FeedContext'
 
 
 function EditFeed() {
-    const {userSources, unfollowFeed, getFeedFolder, feedCategory} = React.useContext(FeedContext);
+    const {userSources, unfollowFeed, getFeedFolder, feedCategory, fetchUserSources} = React.useContext(FeedContext);
     const [displayValues, setDisplayValues] = React.useState(userSources);
     const [search, setSearch] = React.useState('');
     console.log(userSources);
+    React.useEffect(() => {
+        setDisplayValues(userSources);
+
+        console.log('EditFeed useEffect called!!!');
+    }, [userSources])
+
 
     const handleChange = (e) => {
         const opt = e.target.value;
@@ -29,11 +35,7 @@ function EditFeed() {
         setSearch(s);
     }
 
-    React.useEffect(() => {
-        setDisplayValues(userSources);
-        console.log('EditFeed useEffect called!!!');
-    }, [userSources])
-
+   
     const handleUnfollow = (id) => {
         unfollowFeed(id);
     }

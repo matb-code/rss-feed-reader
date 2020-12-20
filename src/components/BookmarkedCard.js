@@ -63,7 +63,7 @@ function BookmarkedCard(props) {
                             <BookmarkIcon />
                         </IconButton>
                         <a target="_blank" href={e.article.link}>
-                            <h5>Read More...</h5>
+                            <h5>{'Explore full story >>>'}</h5>
                         </a>
                     </CardActions>
                 </Card>

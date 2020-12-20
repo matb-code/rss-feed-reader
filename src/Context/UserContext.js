@@ -15,6 +15,7 @@ function UserContextProvider(props) {
     const [resetOk, setResetOk] = React.useState(false);
     const [isRegistered, setRegistered] = React.useState(false)
     const [loginMessage, setLoginMessage] = React.useState('');    // for showing 'invalid credentials' message when needed
+    const [userInfo, setUserInfo] = React.useState({});
 
     //to show errors while signing up
     const [signupErrorMessage, setSignupErrorMessage] = React.useState('');
@@ -86,6 +87,21 @@ function UserContextProvider(props) {
         
     }
 
+    async function fetchUserInfo(){
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json', 'Authorization': `Token ${auth.token}`}
+        }
+    
+        fetch('http://127.0.0.1:8000/api/account/info', requestOptions)
+            .then(res => res.json())
+            .then(res => {
+                console.log(res);
+                setUserInfo(res);
+            })
+            .catch(err => console.log(err))
+
+    }
     
 
     const logout = () => {
@@ -118,7 +134,9 @@ function UserContextProvider(props) {
             confirmpasswordMessage,
             signupErrorMessage, 
             setSignupErrorMessage,
-            setRegistered
+            setRegistered,
+            fetchUserInfo,
+            userInfo
         }}>
             {props.children}
         </UserContext.Provider>
