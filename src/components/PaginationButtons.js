@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 export default function PaginationButtons({totalPosts, postsPerPage, setCurPage}) {
   const classes = useStyles();
   const [page, setPage] = React.useState(1);
-  const totalPages = totalPosts/postsPerPage;
+  const totalPages = Math.ceil(totalPosts/postsPerPage);
   
   const handleClick = (event, value) => {
       setPage(value);
